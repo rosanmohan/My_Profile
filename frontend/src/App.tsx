@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock } from 'lucide-react'
+import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from './types'
 import { EditableText } from './components/EditableText'
@@ -184,6 +184,18 @@ function App() {
     const removeEducation = (index: number) => {
         const newEdu = data.education.filter((_, i) => i !== index);
         setData({ ...data, education: newEdu });
+    };
+
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                updateProfile('image_url', base64String);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleDownloadPDF = () => {
@@ -565,21 +577,42 @@ function App() {
 
             {/* HEADER - Fixed Top */}
             <header className="px-6 py-4 glass-card mx-4 mt-4 mb-2 flex flex-col md:flex-row justify-between items-center shadow-sm shrink-0">
-                <div className="text-center md:text-left">
-                    <EditableText
-                        value={data.profile.name}
-                        onChange={(v) => updateProfile('name', v)}
-                        isEditing={isEditing}
-                        tag="h1"
-                        className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-700"
-                    />
-                    <EditableText
-                        value={data.profile.title}
-                        onChange={(v) => updateProfile('title', v)}
-                        isEditing={isEditing}
-                        tag="p"
-                        className="text-gray-800 font-medium"
-                    />
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                    {/* Profile Photo */}
+                    <div className="relative group shrink-0">
+                        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-200">
+                            {data.profile.image_url ? (
+                                <img src={data.profile.image_url} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                    <User size={40} />
+                                </div>
+                            )}
+                        </div>
+                        {isEditing && (
+                            <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Camera size={20} className="text-white" />
+                                <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                            </label>
+                        )}
+                    </div>
+
+                    <div className="text-center md:text-left">
+                        <EditableText
+                            value={data.profile.name}
+                            onChange={(v) => updateProfile('name', v)}
+                            isEditing={isEditing}
+                            tag="h1"
+                            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-700"
+                        />
+                        <EditableText
+                            value={data.profile.title}
+                            onChange={(v) => updateProfile('title', v)}
+                            isEditing={isEditing}
+                            tag="p"
+                            className="text-gray-800 font-medium"
+                        />
+                    </div>
                 </div>
                 <div className="flex flex-wrap justify-center gap-4 mt-2 md:mt-0 text-gray-600 text-sm">
                     <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
