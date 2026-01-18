@@ -6,7 +6,7 @@ interface Props {
     isEditing: boolean;
     className?: string;
     multiline?: boolean;
-    tag?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
+    tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div';
 }
 
 export const EditableText: React.FC<Props> = ({

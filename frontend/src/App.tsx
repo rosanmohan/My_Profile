@@ -3,7 +3,7 @@ import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock } from 'lucide-react'
 import { jsPDF } from 'jspdf'
-import { ResumeData, Experience, Project } from './types'
+import { ResumeData, Experience, Project, Education } from './types'
 import { EditableText } from './components/EditableText'
 
 const API_URL = import.meta.env.VITE_API_URL || '/api/resume';
@@ -132,6 +132,39 @@ function App() {
                 [category]: skillList
             }
         });
+    };
+
+    const addSkillCategory = () => {
+        const name = prompt("Enter new category name:");
+        if (name && !data.skills[name]) {
+            setData({ ...data, skills: { ...data.skills, [name]: [] } });
+        }
+    };
+
+    const removeSkillCategory = (category: string) => {
+        if (window.confirm(`Delete category "${category}"?`)) {
+            const newSkills = { ...data.skills };
+            delete newSkills[category];
+            setData({ ...data, skills: newSkills });
+        }
+    };
+
+    const updateEducation = (index: number, field: keyof Education, value: string) => {
+        const newEdu = [...data.education];
+        newEdu[index] = { ...newEdu[index], [field]: value };
+        setData({ ...data, education: newEdu });
+    };
+
+    const addEducation = () => {
+        setData({
+            ...data,
+            education: [...data.education, { degree: 'Degree Name', institution: 'Institution Name', year: 'Year' }]
+        });
+    };
+
+    const removeEducation = (index: number) => {
+        const newEdu = data.education.filter((_, i) => i !== index);
+        setData({ ...data, education: newEdu });
     };
 
     const handleDownloadPDF = () => {
@@ -581,11 +614,21 @@ function App() {
 
                     {/* Skills Card */}
                     <section className="glass-card p-5">
-                        <h3 className="text-xs font-extrabold uppercase tracking-wider text-black mb-3">Technical Skills</h3>
+                        <div className="flex justify-between items-center mb-3">
+                            <h3 className="text-xs font-extrabold uppercase tracking-wider text-black">Technical Skills</h3>
+                            {isEditing && <button onClick={addSkillCategory} className="text-blue-600 hover:bg-blue-50 p-1 rounded transition-colors" title="Add Category"><Plus size={14} /></button>}
+                        </div>
                         <div className="space-y-4">
                             {Object.entries(data.skills).map(([category, skills]) => (
-                                <div key={category}>
-                                    <h4 className="text-xs font-semibold text-orange-600 mb-2">{category}</h4>
+                                <div key={category} className="relative group">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <h4 className="text-xs font-semibold text-orange-600">{category}</h4>
+                                        {isEditing && (
+                                            <button onClick={() => removeSkillCategory(category)} className="text-red-300 hover:text-red-500 transition-colors p-1">
+                                                <Trash2 size={12} />
+                                            </button>
+                                        )}
+                                    </div>
                                     {isEditing ? (
                                         <textarea
                                             className="w-full text-xs p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 outline-none resize-y min-h-[60px]"
@@ -609,13 +652,23 @@ function App() {
 
                     {/* Education Card */}
                     <section className="glass-card p-5">
-                        <h3 className="text-xs font-extrabold uppercase tracking-wider text-black mb-3">Education</h3>
+                        <div className="flex justify-between items-center mb-3">
+                            <h3 className="text-xs font-extrabold uppercase tracking-wider text-black">Education</h3>
+                            {isEditing && <button onClick={addEducation} className="text-blue-600 hover:bg-blue-50 p-1 rounded transition-colors" title="Add Education"><Plus size={14} /></button>}
+                        </div>
                         <div className="space-y-3">
                             {data.education.map((edu, index) => (
-                                <div key={index} className="border-l-2 border-orange-200 pl-3">
-                                    <h4 className="text-sm font-bold text-gray-800">{edu.degree}</h4>
-                                    <p className="text-xs text-orange-600 font-medium">{edu.institution}</p>
-                                    <span className="text-xs text-gray-400">{edu.year}</span>
+                                <div key={index} className="border-l-2 border-orange-200 pl-3 relative group">
+                                    <EditableText value={edu.degree} onChange={(v) => updateEducation(index, 'degree', v)} isEditing={isEditing} tag="h4" className="text-sm font-bold text-gray-800" />
+                                    <EditableText value={edu.institution} onChange={(v) => updateEducation(index, 'institution', v)} isEditing={isEditing} tag="p" className="text-xs text-orange-600 font-medium" />
+                                    <div className="flex justify-between items-end">
+                                        <EditableText value={edu.year} onChange={(v) => updateEducation(index, 'year', v)} isEditing={isEditing} tag="span" className="text-xs text-gray-400" />
+                                        {isEditing && (
+                                            <button onClick={() => removeEducation(index)} className="text-red-300 hover:text-red-500 transition-colors">
+                                                <Trash2 size={12} />
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>
