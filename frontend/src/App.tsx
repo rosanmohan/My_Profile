@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User } from 'lucide-react'
+import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User, Github, CreditCard, Calendar } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from './types'
 import { EditableText } from './components/EditableText'
@@ -643,6 +643,32 @@ function App() {
                             </a>
                         )}
                     </div>
+
+                    {/* New Fields */}
+                    {(isEditing || data.profile.github) && (
+                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                            <Github size={14} />
+                            {isEditing ? (
+                                <EditableText value={data.profile.github || 'GitHub URL'} onChange={(v) => updateProfile('github', v)} isEditing={true} />
+                            ) : (
+                                <a href={data.profile.github?.startsWith('http') ? data.profile.github : `https://${data.profile.github}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                    GitHub
+                                </a>
+                            )}
+                        </div>
+                    )}
+                    {(isEditing || data.profile.pan) && (
+                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors" title="PAN No">
+                            <CreditCard size={14} />
+                            <EditableText value={data.profile.pan || 'PAN No'} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} />
+                        </div>
+                    )}
+                    {(isEditing || data.profile.dob) && (
+                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors" title="Date of Birth">
+                            <Calendar size={14} />
+                            <EditableText value={data.profile.dob || 'DOB (YYYY-MM-DD)'} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} />
+                        </div>
+                    )}
                 </div>
             </header>
 
