@@ -3,7 +3,7 @@ import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock } from 'lucide-react'
 import { jsPDF } from 'jspdf'
-import { ResumeData, Experience, Project, Education } from './types'
+import { ResumeData, Experience, Project } from './types'
 import { EditableText } from './components/EditableText'
 
 const API_URL = import.meta.env.VITE_API_URL || '/api/resume';
