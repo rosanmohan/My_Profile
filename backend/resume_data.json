@@ -1,0 +1,163 @@
+{
+  "profile": {
+    "name": "Rosan Mohan Sahoo",
+    "title": "GenAI Developer | Azure AI Engineer Associate (AI-102)",
+    "summary": "IT professional with 8.7 years of experience, including 4 years as an AI Developer and 2 years as a GenAI developer. Expert in Generative AI & LLMs, RAG, cognitive architectures, and multimodal learning. Proficient in developing autonomous AI agents and leveraging cutting-edge machine learning methodologies.",
+    "email": "rosanmohans@gmail.com",
+    "phone": "8123259028",
+    "linkedin": "www.linkedin.com/in/rosanmohan",
+    "location": "Bhubaneswar",
+    "image_url": ""
+  },
+  "skills": {
+    "GenAI & Orchestration": [
+      "Python",
+      "Machine Learning",
+      "Deep Learning",
+      "Statistical Modeling",
+      "TensorFlow",
+      "PyTorch",
+      "JAX",
+      "Scikit-Learn",
+      "GPT-4/4o/5",
+      "LLaMA-3",
+      "Mistral/Mixtral",
+      "Gemma",
+      "Falcon",
+      "Hugging Face Transformers",
+      "Fine-Tuning (LoRA, QLoRA, PEFT)",
+      "RAG Fusion",
+      "Advanced Prompt Engineering",
+      "Multimodal LLMs",
+      "LangChain",
+      "LlamaIndex",
+      "LangGraph",
+      "CrewAI",
+      "AutoGen",
+      "SWARM"
+    ],
+    "Vector DB & Search": [
+      "FAISS",
+      "Milvus",
+      "Weaviate",
+      "Pinecone",
+      "ChromaDB",
+      "Embeddings (BGE, E5)",
+      "Re-ranking (ColBERT)"
+    ],
+    "Deployment & MLOps": [
+      "Flash Attention 2",
+      "vLLM",
+      "TensorRT-LLM",
+      "Quantization",
+      "Triton Inference Server",
+      "Ray Serve",
+      "MLflow",
+      "Weights & Biases",
+      "LangSmith",
+      "Docker",
+      "Kubernetes",
+      "AWS SageMaker",
+      "Azure AI"
+    ],
+    "Backend & Tools": [
+      "FastAPI",
+      "Flask",
+      "Async IO",
+      "React/Next.js",
+      "Git",
+      "GitHub",
+      "VS Code",
+      "MongoDB",
+      "PostgreSQL",
+      "Snowflake"
+    ]
+  },
+  "experience": [
+    {
+      "role": "GenAI Developer",
+      "company": "TCS",
+      "duration": "June 2025 - Present",
+      "description": "Working on GenAI Orchestration & Agents, leveraging Python, ML, DL, and various LLMs like GPT-4 and LLaMA-3."
+    },
+    {
+      "role": "AI & ML Developer",
+      "company": "Harman",
+      "duration": "March 2024 - June 2025",
+      "description": "Developed Samsung CareBot using Agentic RAG. Worked on Sentiment Analysis of Customer Reviews and Predictive Maintenance models for Verifone devices."
+    },
+    {
+      "role": "Data Scientist",
+      "company": "Verifone",
+      "duration": "March 2021 - Feb 2024",
+      "description": "Designed and implemented AI models using Azure GenAI to automate forecasting and query optimization. Built cost forecasting applications and GenAI-powered query optimizers."
+    },
+    {
+      "role": "Database Engineer",
+      "company": "Tech Mahindra",
+      "duration": "May 2017 - March 2021",
+      "description": "Managed OA and PA database applications, optimized database performance, and supported BI tools like Tableau."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Alt Vision",
+      "description": "An AI-powered image understanding application for the visually impaired. Generates human-readable descriptions from images using Pixtral multimodal LLM.",
+      "technologies": [
+        "Flask",
+        "PostgreSQL",
+        "AWS",
+        "Pixtral VLM"
+      ],
+      "responsibilities": "- Architected the multimodal image processing pipeline.\n- Integrated Pixtral VLM for generating accessible descriptions.\n- Optimized backend performance for real-time inference."
+    },
+    {
+      "title": "Lease Agreement AI Q&A",
+      "description": "Conversational AI system for legal document analysis. Processes PDF leases, extracts metadata, and uses RAG with Gemini LLM for Q&A.",
+      "technologies": [
+        "LangChain",
+        "Typesense",
+        "Milvus",
+        "Gemini LLM",
+        "FastAPI"
+      ],
+      "responsibilities": "- Designed the RAG pipeline for accurate legal query retrieval.\n- Implemented metadata extraction from PDF documents.\n- Develop RESTful APIs using FastAPI."
+    },
+    {
+      "title": "VarientGen",
+      "description": "AI-driven copywriting automation platform generating content variations based on tone and length using a multi-agent workflow.",
+      "technologies": [
+        "LangGraph",
+        "Multi-Agent Systems",
+        "Prompt Engineering"
+      ],
+      "responsibilities": "- Developed multi-agent workflows using LangGraph.\n- Fine-tuned prompt engineering for diverse tonal outputs.\n- Built the core logic for content variation generation."
+    },
+    {
+      "title": "Cost Forecasting App",
+      "description": "Application utilizing Azure GenAI and historical data to forecast operational expenses across multiple timeframes.",
+      "technologies": [
+        "Azure GenAI",
+        "Time Series Forecasting"
+      ],
+      "responsibilities": "- Implemented time-series forecasting models.\n- Integrated Azure GenAI for predictive insights.\n- Visualized cost data for stakeholder reporting."
+    },
+    {
+      "title": "Snowflake Query Optimizer",
+      "description": "GenAI-powered tool to analyze and optimize Snowflake queries, reducing execution time and resource usage.",
+      "technologies": [
+        "GenAI",
+        "Snowflake",
+        "Query Optimization"
+      ],
+      "responsibilities": "- Analyzed slow-running Snowflake queries.\n- Utilized GenAI to suggest query optimizations.\n- Reduced average query execution time by 30%."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor Degree in Electronics and Telecommunication Engineering",
+      "institution": "Biju Patnaik University of Technology",
+      "year": "2010 - 2014"
+    }
+  ]
+}

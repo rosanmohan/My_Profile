@@ -1,0 +1,253 @@
+M i c r o s o f t  C e r t i f i e d  A z u r e  A I  E n g i n e e r  A s s o c i a t e .  ( A I - 1 0 2 )
+I T  p r o f e s s i o n a l  w i t h  8 . 7  y e a r s  o f  e x p e r i e n c e ,  i n c l u d i n g  4  y e a r s  a s  a n  A I  D e v e l o p e r  a n d  2  y e a r s  a s  a  G e n A I  d e v e l o p e r .  E x p e r t
+G e n e r a t i v e  A I  &  L L M s  s p e c i a l i s t ,  p u s h i n g  t h e  b o u n d a r i e s  o f  a d v a n c e d  G e n A I  t e c h n i q u e s ,  i n c l u d i n g  f o u n d a t i o n  m o d e l s ,  R e t r i e v a l -
+A u g m e n t e d  G e n e r a t i o n  ( R A G ) ,  c o g n i t i v e  a r c h i t e c t u r e s ,  a n d  m u l t i m o d a l  l e a r n i n g .  P r o f i c i e n t  i n  d e v e l o p i n g  a u t o n o m o u s  A I  a g e n t s ,
+l e v e r a g i n g  c u t t i n g - e d g e  m a c h i n e  l e a r n i n g  a n d  d e e p  l e a r n i n g  m e t h o d o l o g i e s ,  s u c h  a s  T r a n s f o r m e r s  a n d  N e u r a l  N e t w o r k s .  S k i l l e d  i n
+P y t h o n ,  I  d e v e l o p  a n d  d e p l o y  p r e d i c t i v e  m o d e l s  t o  e n h a n c e  d e c i s i o n - m a k i n g  a n d  o p e r a t i o n a l  e f f i c i e n c y .  A d e p t  a t  c o m m u n i c a t i n g
+c o m p l e x  c o n c e p t s  t o  s t a k e h o l d e r s ,  I  i n t e g r a t e  c u t t i n g - e d g e  t e c h n i q u e s  t o  s o l v e  p r o b l e m s  a n d  d r i v e  d i g i t a l  t r a n s f o r m a t i o n .  F o c u s e d
+o n  b u i l d i n g  s c a l a b l e  A I  s y s t e m s ,  I  e m p o w e r  o r g a n i z a t i o n s  w i t h  a c t i o n a b l e  i n s i g h t s  a n d  d a t a  s c i e n c e  i n n o v a t i o n .
+G e n A I  D E V E L O P E R
+C E R T I F I C A T I O N S :
+P R O F E S S I O N A L  E X P E R I E N C E :
+P R O J E C T S  I N  D E T A I L :
+E m a i l :  r o s a n m o h a n s @ g m a i l . c o m  
+M O B :  8 1 2 3 2 5 9 0 2 8
+L i n k e d I n  :  w w w . l i n k e d i n . c o m / i n / r o s a n m o h a n
+P A N  :  F Q X P S 3 2 0 9 H
+R o s a n  M o h a n  S a h o o
+G e n A I  D e v e l o p e r  a t  T C S ,  J u n e  2 0 2 5  -  T i l l  N o w
+G E N A I  O R C H E S T R A T I O N  &  A G E N T S :
+P y t h o n ,  M a c h i n e  L e a r n i n g ,  D e e p  L e a r n i n g ,  S t a t i s t i c a l  M o d e l i n g
+T e n s o r F l o w ,  P y T o r c h ,  J A X ,  S c i k i t - L e a r n
+G P T - 4 / 4 o / 5 ,  L L a M A - 3 ,  M i s t r a l / M i x t r a l ,  G e m m a ,  F a l c o n
+H u g g i n g  F a c e  T r a n s f o r m e r s ,  F i n e - T u n i n g  ( L o R A ,  Q L o R A ,  P E F T )
+R A G  F u s i o n ,  A d v a n c e d  P r o m p t  E n g i n e e r i n g ,  M u l t i m o d a l  L L M s
+( V i s i o n / A u d i o / T e x t )
+C O R E  A I  E N G I N E E R I N G  &  L L M  T E C H N O L O G I E S :
+B h u b a n e s w a r
+D O B  :  1 3 t h  A p r  1 9 9 0
+A l t  V i s i o n  -  A  v i s i o n  g u i d e  t o  b l i n d s :  ( A p p l e  C l i e n t )
+A l t  V i s i o n  i s  a n  A I - p o w e r e d  i m a g e  u n d e r s t a n d i n g  a p p l i c a t i o n  t h a t  g e n e r a t e s  c l e a r ,  h u m a n - r e a d a b l e  d e s c r i p t i o n s  f r o m  u s e r -
+u p l o a d e d  i m a g e s .  B u i l t  w i t h  F l a s k  a n d  d e p l o y e d  o n  A W S ,  t h e  s y s t e m  i n t e g r a t e s  t h e  P i x t r a l  m u l t i m o d a l  L L M  t o  p e r f o r m  t w o  k e y
+t a s k s :  i m a g e  c l a s s i f i c a t i o n  i n t o  p r e d e f i n e d  c a t e g o r i e s  a n d  c o n t e x t - a w a r e  c a p t i o n  g e n e r a t i o n .  T h e  b a c k e n d  e n r i c h e s  o u t p u t s  b y
+r e t r i e v i n g  r e f e r e n c e  e x a m p l e s  f r o m  P o s t g r e S Q L ,  e n s u r i n g  c o n s i s t e n t  s t y l e  a n d  a c c u r a c y .  T o  e n h a n c e  t h e  m o d e l ’ s  p e r f o r m a n c e ,
+a  c u s t o m  f i n e - t u n i n g  p i p e l i n e  w a s  d e s i g n e d  u s i n g  c u r a t e d  i m a g e – t e x t  p a i r s ,  e n a b l i n g  t h e  s y s t e m  t o  l e a r n  d o m a i n - s p e c i f i c
+c a p t i o n i n g  b e h a v i o r .  A l t  V i s i o n  d e l i v e r s  f a s t ,  r e l i a b l e  v i s u a l  i n t e r p r e t a t i o n  a n d  d e m o n s t r a t e s  e n d - t o - e n d  i n t e g r a t i o n  o f  A I
+m o d e l i n g ,  c l o u d  d e p l o y m e n t ,  a n d  s c a l a b l e  b a c k e n d  e n g i n e e r i n g  s u i t a b l e  f o r  p r o d u c t i o n  e n v i r o n m e n t s .
+M y  R o l e s  i n  t h i s  p r o j e c t :
+D e s i g n e d  a n d  d e v e l o p e d  t h e  f u l l  s y s t e m  a r c h i t e c t u r e  u s i n g  F l a s k ,  P o s t g r e S Q L ,  A W S ,  a n d  P i x t r a l  V L M .
+I m p l e m e n t e d  t h e  p i p e l i n e  f o r  i m a g e  u p l o a d ,  c l a s s i f i c a t i o n ,  a n d  c a p t i o n  g e n e r a t i o n  w i t h  A P I  o r c h e s t r a t i o n .
+P r e p a r e d  a n d  p r o c e s s e d  t r a i n i n g  d a t a  t o  f i n e - t u n e  t h e  m o d e l  f o r  i m p r o v e d  a c c u r a c y  a n d  c o n s i s t e n c y .
+D e p l o y e d  a n d  o p t i m i z e d  t h e  a p p l i c a t i o n  o n  A W S  f o r  r e a l - t i m e  i n f e r e n c e  a n d  p r o d u c t i o n  r e a d i n e s s .
+E s t a b l i s h e d  e n d - t o - e n d  e v a l u a t i o n ,  t e s t i n g ,  a n d  s c a l i n g  s t r a t e g i e s  t o  s u p p o r t  f u t u r e  e n h a n c e m e n t s .
+L a n g C h a i n ,  L l a m a I n d e x ,  L a n g G r a p h
+C r e w A I ,  A u t o G e n ,  S W A R M
+F A I S S ,  M i l v u s ,  W e a v i a t e ,  P i n e c o n e ,  C h r o m a D B
+E m b e d d i n g s  ( B G E ,  E 5 ,  S e n t e n c e - T 5 ,  N o m i c )
+R e - r a n k i n g  ( C o l B E R T ,  C r o s s  E n c o d e r s )
+T o o l  C a l l i n g ,  Q u e r y  E x p a n s i o n
+M O D E L  O P T I M I Z A T I O N  &  L L M  I N F E R E N C E : C L O U D  &  D E P L O Y M E N T :
+H i g h - P e r f o r m a n c e  C o m p u t e :  F l a s h  A t t e n t i o n  2 ,  v L L M ,
+T e n s o r R T - L L M
+Q u a n t i z a t i o n  ( I N T 4 ,  I N T 8 ,  G G U F ) ,  D i s t r i b u t e d  T r a i n i n g
+T r i t o n  I n f e r e n c e  S e r v e r ,  R a y  S e r v e
+M L O p s / L L M O p s :  M L f l o w ,  W e i g h t s  &  B i a s e s ,  L a n g S m i t h ,
+T r u l e n s ,  D e e p E v a l ,  R a g a s
+M o d e l  M o n i t o r i n g ,  S a f e t y  G u a r d r a i l s ,  O b s e r v a b i l i t y  &  C I / C D
+( G i t H u b  A c t i o n s ,  A z u r e  P i p e l i n e s )
+A W S  S a g e M a k e r  &  B e d r o c k ,  G o o g l e  V e r t e x  A I
+M i c r o s e r v i c e s ,  A P I  G a t e w a y  A r c h i t e c t u r e s
+F a s t A P I ,  F l a s k ,  A s y n c  I O  f o r  b a c k e n d  i n f e r e n c e  s e r v i c e s
+S t r e a m l i t ,  G r a d i o ,  R e a c t / N e x t . j s  f o r  G e n A I  U I
+D o c u m e n t  I n t e l l i g e n c e  ( O C R ,  p a r s i n g ,  
+m u l t i m o d a l  r e t r i e v a l )
+M y  R o l e s  i n  t h i s  p r o j e c t :
+A  c o n v e r s a t i o n a l  A I  s y s t e m  b u i l t  t o  a c c e l e r a t e  l e g a l  d o c u m e n t  a n a l y s i s  a c r o s s  l a r g e  p o r t f o l i o s  o f  c o m m e r c i a l  l e a s e  a g r e e m e n t s .
+T h e  s y s t e m  i n c l u d e s  a n  i n g e s t i o n  p i p e l i n e  t h a t  p r o c e s s e s  P D F  l e a s e s ,  e x t r a c t i n g  s t r u c t u r e d  m e t a d a t a  a n d  r a w  t e x t .  M e t a d a t a  i s
+i n d e x e d  i n  T y p e s e n s e  f o r  f a s t ,  f i l t e r a b l e  s e a r c h ,  w h i l e  t e x t  i s  c h u n k e d ,  v e c t o r i z e d ,  a n d  s t o r e d  i n  M i l v u s  f o r  s e m a n t i c  r e t r i e v a l .
+D u r i n g  q u e r i e s ,  a  R A G  p i p e l i n e  u s e s  a  G e m i n i  L L M  f o r  e n t i t y  e x t r a c t i o n  ( e . g . ,  l a n d l o r d ,  p r e m i s e  n a m e )  t o  t r i g g e r  h y b r i d  s e a r c h :
+f i r s t  f i l t e r i n g  d o c u m e n t s  v i a  T y p e s e n s e ,  t h e n  r e t r i e v i n g  r e l e v a n t  t e x t  c h u n k s  f r o m  M i l v u s .  C u r a t e d  c o n t e x t  i s  p a s s e d  t o  t h e  L L M
+t o  g e n e r a t e  p r e c i s e ,  c i t a t i o n - b a c k e d  a n s w e r s .  A  F a s t A P I  b a c k e n d  w i t h  M o n g o D B  s e s s i o n  c a c h i n g  a c c e l e r a t e s  f o l l o w - u p  q u e r i e s
+b y  a v o i d i n g  f u l l  R A G  e x e c u t i o n ,  r e d u c i n g  r e s e a r c h  t i m e  a n d  m i n i m i z i n g  h u m a n  e r r o r .
+L e a s e  A g r e e m e n t  a n  A I  Q & A  S y s t e m :  ( A p p l e  C l i e n t )
+T e c h  S t a c k s  u s e d :
+V a r i e n t G e n  a  T e x t  V a r i e n t  G e n e r a t i o n :  ( A p p l e  C l i e n t )
+V a r i e n t G e n  i s  a n  A I - d r i v e n  c o p y w r i t i n g  a u t o m a t i o n  p l a t f o r m  t h a t  g e n e r a t e s  m u l t i p l e  c o n t e n t  v a r i a t i o n s  b a s e d  o n  t o n e ,  l e n g t h ,
+a n d  c u s t o m  c o n s t r a i n t s .  I t  u s e s  a  L a n g G r a p h - b a s e d  m u l t i - a g e n t  w o r k f l o w  ( G e n e r a t i o n ,  V a l i d a t i o n ,  C o r r e c t i o n )  w i t h  o p t i m i z e d
+p r o m p t s  t o  e n s u r e  a c c u r a c y ,  b r a n d  a l i g n m e n t ,  a n d  h i g h - q u a l i t y  o u t p u t s .  T h e  s y s t e m  r e d u c e s  m a n u a l  e d i t i n g ,  i m p r o v e s  c o n t e n t
+d i v e r s i t y ,  a n d  e n a b l e s  s c a l a b l e  c o n t e n t  o p e r a t i o n s  f o r  m a r k e t i n g  t e a m s .  I t s  m o d u l a r  a r c h i t e c t u r e  a l l o w s  e a s y  e x t e n s i b i l i t y ,
+c o n s t r a i n t  h a n d l i n g ,  a n d  i n t e g r a t i o n  w i t h  e n t e r p r i s e  w o r k f l o w s .
+T e c h  S t a c k s  u s e d :
+M y  R o l e s  i n  t h i s  p r o j e c t :
+B u i l t  V a r i e n t G e n ,  a n  A I  c o p y w r i t i n g  a u t o m a t i o n  t o o l  g e n e r a t i n g  h i g h - q u a l i t y  c o n t e n t  v a r i a t i o n s  w i t h  p r e c i s e  u s e r  c o n t r o l s .
+D e s i g n e d  a  m u l t i - a g e n t  p i p e l i n e  ( G e n e r a t i o n ,  V a l i d a t i o n ,  C o r r e c t i o n )  u s i n g  L a n g G r a p h  f o r  s t r u c t u r e d  c o n t e n t  o r c h e s t r a t i o n .
+I m p l e m e n t e d  r o b u s t  p r o m p t  e n g i n e e r i n g  t o  e n f o r c e  t o n e ,  l e n g t h ,  a n d  b r a n d  c o n s t r a i n t s .
+A c h i e v e d  h i g h  c o n t e n t  c o n s i s t e n c y  t h r o u g h  a u t o m a t e d  e v a l u a t i o n ,  c o r r e c t i o n ,  a n d  r e f i n e m e n t  l o o p s .
+D e l i v e r e d  a  s c a l a b l e ,  p r o d u c t i o n - r e a d y  a r c h i t e c t u r e ,  r e d u c i n g  m a n u a l  c o n t e n t  c r e a t i o n  t i m e  b y  6 0 – 7 0 %  ( e s t i m a t e - f r i e n d l y
+m e t r i c ) .
+D e s i g n e d  a n d  i m p l e m e n t e d  t h e  e n d - t o - e n d  i n g e s t i o n  p i p e l i n e  t o  p r o c e s s  P D F  l e a s e  a g r e e m e n t s ,  e x t r a c t  s t r u c t u r e d  m e t a d a t a ,
+a n d  g e n e r a t e  c l e a n  t e x t  f o r  d o w n s t r e a m  r e t r i e v a l .
+D e v e l o p e d  a  h y b r i d  r e t r i e v a l  a r c h i t e c t u r e  b y  i n t e g r a t i n g  T y p e s e n s e  f o r  m e t a d a t a  f i l t e r i n g  a n d  M i l v u s  f o r  v e c t o r - b a s e d  s e m a n t i c
+s e a r c h ,  e n a b l i n g  h i g h - a c c u r a c y  d o c u m e n t  d i s c o v e r y .
+B u i l t  a n d  o p t i m i z e d  t h e  R A G  p i p e l i n e ,  i n c l u d i n g  e n t i t y  e x t r a c t i o n  u s i n g  G e m i n i  L L M ,  m e t a d a t a - d r i v e n  f i l t e r i n g ,  a n d  c o n t e x t
+r e t r i e v a l  f o r  p r e c i s e  a n d  v e r i f i a b l e  L L M  r e s p o n s e s .
+C r e a t e d  a  F a s t A P I  b a c k e n d  w i t h  M o n g o D B  s e s s i o n  c a c h i n g ,  r e d u c i n g  l a t e n c y  f o r  f o l l o w - u p  q u e r i e s  b y  i n t e l l i g e n t l y  b y p a s s i n g
+f u l l  R A G  e x e c u t i o n  w h e n  p o s s i b l e .
+E n s u r e d  p r o d u c t i o n - g r a d e  p e r f o r m a n c e  a n d  r e l i a b i l i t y  t h r o u g h  s y s t e m  o p t i m i z a t i o n ,  q u e r y  c a c h i n g ,  s c a l a b l e  d a t a b a s e  d e s i g n ,
+a n d  r i g o r o u s  t e s t i n g  t o  m i n i m i z e  e r r o r  r a t e s  f o r  l e g a l  t e a m s .
+P r o g r a m m i n g  L a n g u a g e s :  P y t h o n
+A I  /  L L M  F r a m e w o r k s :  L a n g C h a i n ,  C u s t o m  R A G  P i p e l i n e s ,  P r o m p t  E n g i n e e r i n g
+M o d e l  I n t e g r a t i o n :  G e m i n i  L L M ,  O p e n A I  ( o p t i o n a l ) ,  L o c a l  E m b e d d i n g  M o d e l s
+S e a r c h  &  R e t r i e v a l  S y s t e m s :  T y p e s e n s e  ( s t r u c t u r e d  m e t a d a t a  s e a r c h ) ,  M i l v u s  ( v e c t o r  d a t a b a s e  f o r  s e m a n t i c  r e t r i e v a l )
+D o c u m e n t  P r o c e s s i n g :  P D F  P a r s i n g ,  M e t a d a t a  E x t r a c t i o n ,  T e x t  C h u n k i n g ,  E m b e d d i n g  G e n e r a t i o n
+A r c h i t e c t u r e  &  B a c k e n d :  F a s t A P I ,  A s y n c  I / O  ( i f  u s e d ) ,  R E S T  A P I  D e v e l o p m e n t
+D a t a b a s e s  &  S t o r a g e :  M o n g o D B  ( s e s s i o n  c a c h i n g  &  s t a t e  m a n a g e m e n t ) ,  M u l t i - D B  I n d e x i n g  A r c h i t e c t u r e
+O r c h e s t r a t i o n  &  W o r k f l o w :  H y b r i d  R e t r i e v a l  F l o w ,  R A G  P i p e l i n e  O p t i m i z a t i o n ,  C o n t e x t  A s s e m b l y  L o g i c
+D e v e l o p e r  T o o l s :  G i t ,  G i t H u b ,  V S  C o d e
+E n v i r o n m e n t  M a n a g e m e n t :  V i r t u a l e n v  /  C o n d a
+T e s t i n g  &  D e b u g g i n g :  P y T e s t ,  L o g g i n g ,  M o n i t o r i n g ,  P e r f o r m a n c e  O p t i m i z a t i o n  T o o l s
+P r o g r a m m i n g  L a n g u a g e s :  P y t h o n
+A I  /  L L M  F r a m e w o r k s :  L a n g C h a i n ,  L a n g G r a p h
+M o d e l  I n t e g r a t i o n :  O p e n A I  /  L o c a l  L L M s  ( a s  a p p l i c a b l e ) ,  P r o m p t  E n g i n e e r i n g
+M u l t i - A g e n t  S y s t e m s :  G e n e r a t i o n ,  V a l i d a t i o n  &  C o r r e c t i o n  A g e n t s
+V e c t o r  &  D o c u m e n t  T o o l s :  ( O p t i o n a l  i f  u s e d )  F A I S S  /  C h r o m a
+D a t a  P r o c e s s i n g :  P y t h o n  R e g e x ,  T e x t  N o r m a l i z a t i o n  U t i l i t i e s
+O r c h e s t r a t i o n  &  W o r k f l o w :  S t a t e G r a p h ,  C u s t o m  A g e n t  P i p e l i n e s
+A P I s  &  S e r v i c e s :  R E S T  A P I s ,  A s y n c  I / O  ( i f  u s e d )
+D e v e l o p e r  T o o l s :  G i t ,  G i t H u b ,  V S  C o d e
+E n v i r o n m e n t  M a n a g e m e n t :  V i r t u a l e n v  /  C o n d a
+L a n g u a g e s  &  B a c k e n d :  P y t h o n ,  F l a s k ,  R E S T  A P I s
+A I  &  L L M s :  P i x t r a l  1 2 B  V L M ,  M i s t r a l  F i n e - T u n i n g ,  L o R A
+M o d e l  I n t e g r a t i o n :  P r o m p t  E n g i n e e r i n g ,  C u s t o m  I n s t r u c t i o n  P i p e l i n e s
+D a t a  P r o c e s s i n g :  P a n d a s ,  P I L ,  J S O N L  D a t a s e t  P r e p a r a t i o n
+D a t a b a s e  &  S t o r a g e :  P o s t g r e S Q L ,  A W S  S 3
+D e p l o y m e n t :  A W S  E C 2 ,  N G I N X ,  G u n i c o r n
+D e v  T o o l s  &  O p s :  G i t ,  V S  C o d e ,  V i r t u a l e n v ,  L o g g i n g  &  M o n i t o r i n g
+T e c h  S t a c k s  u s e d :
+D a t a  S c i e n t i s t  a t  V e r i f o n e ,  M a r c h  2 0 2 1  -  F e b  2 0 2 4
+D e s i g n e d  a n d  i m p l e m e n t e d  a d v a n c e d  A I  m o d e l s  u s i n g  A z u r e  G e n A I  a n d  L a r g e  L a n g u a g e  M o d e l s  ( L L M s )  t o  a u t o m a t e
+f o r e c a s t i n g  a n d  q u e r y  o p t i m i z a t i o n  p r o c e s s e s .
+B u i l t  a  c o s t  f o r e c a s t i n g  a p p l i c a t i o n  t h a t  l e v e r a g e s  h i s t o r i c a l  d a t a  t o  p r e d i c t  o p e r a t i o n a l  e x p e n s e s  a c r o s s  m u l t i p l e  t i m e
+f r a m e s  ( 7  d a y s ,  7  w e e k s ,  7  m o n t h s ) ,  e n a b l i n g  p r o a c t i v e  f i n a n c i a l  p l a n n i n g  a n d  d e c i s i o n - m a k i n g .
+D e v e l o p e d  a  G e n A I - p o w e r e d  q u e r y  o p t i m i z e r  t r a i n e d  o n  h i s t o r i c a l  q u e r i e s  t o  d e t e c t  i n e f f i c i e n c i e s ,  r e d u c e  e x e c u t i o n
+t i m e ,  a n d  e n h a n c e  d a t a b a s e  r e s o u r c e  u t i l i z a t i o n  i n  S n o w f l a k e .
+C o l l a b o r a t e d  w i t h  c r o s s - f u n c t i o n a l  t e a m s  t o  i n t e g r a t e  d a t a  f r o m  v a r i o u s  s o u r c e s  i n t o  a  u n i f i e d  S n o w f l a k e  d a t a b a s e ,
+e n s u r i n g  a c c u r a c y  a n d  c o n s i s t e n c y  a c r o s s  m u l t i p l e  b u s i n e s s  u n i t s  a n d  s u b - b u s i n e s s  u n i t s .
+E n h a n c e d  s y s t e m  s c a l a b i l i t y  a n d  p e r f o r m a n c e  b y  a u t o m a t i n g  c o m p l e x  d a t a  w o r k f l o w s  a n d  o p t i m i z i n g  q u e r y  e x e c u t i o n
+p r o c e s s e s  f o r  d a t a - i n t e n s i v e  a p p l i c a t i o n s .
+P a r t n e r e d  w i t h  s t a k e h o l d e r s  t o  i d e n t i f y  b u s i n e s s  c h a l l e n g e s  a n d  d e l i v e r  A I - d r i v e n  s o l u t i o n s  t h a t  i m p r o v e  c o s t
+t r a n s p a r e n c y  a n d  o p e r a t i o n a l  e f f i c i e n c y .
+A n a l y z e d  s t r u c t u r e d  a n d  u n s t r u c t u r e d  d a t a ,  p r o v i d i n g  a c t i o n a b l e  i n s i g h t s  t o  i m p r o v e  f i n a n c i a l  a n d  o p e r a t i o n a l  d e c i s i o n -
+m a k i n g .
+D e s i g n e d  s o l u t i o n s  t h a t  s c a l e  a c r o s s  l a r g e  d a t a s e t s  a n d  a u t o m a t e  r e p e t i t i v e  t a s k s ,  i n c r e a s i n g  p r o d u c t i v i t y  a n d  r e d u c i n g
+m a n u a l  i n t e r v e n t i o n .
+C r e a t e d  d e t a i l e d  d o c u m e n t a t i o n  a n d  d a s h b o a r d s  t o  t r a c k  m o d e l  p e r f o r m a n c e ,  c o s t s ,  a n d  q u e r y  o p t i m i z a t i o n  m e t r i c s ,
+e n s u r i n g  t r a n s p a r e n c y  a n d  a c c o u n t a b i l i t y .
+S t a y e d  u p d a t e d  w i t h  t h e  l a t e s t  a d v a n c e m e n t s  i n  A I ,  m a c h i n e  l e a r n i n g ,  a n d  d a t a  e n g i n e e r i n g  t o o l s ,  a p p l y i n g  t h e m  t o
+r e f i n e  m o d e l s  a n d  p r o c e s s e s  f o r  e n h a n c e d  o u t c o m e s .
+R e s p o n s i b i l i t i e s  a s  A I  &  M L  D e v e l o p e r  a t  H a r m a n :
+S e n t i m e n t  A n a l y s i s  o f  C u s t o m e r  R e v i e w s  o n  P a y m e n t  A p p s :
+D e v e l o p e d  a n  A I - b a s e d  p r e d i c t i v e  m a i n t e n a n c e  m o d e l  f o r  V e r i f o n e  d e v i c e s  t o  r e d u c e  d o w n t i m e  a n d  i m p r o v e
+p e r f o r m a n c e .  B y  a n a l y z i n g  s e n s o r  d a t a ,  h i s t o r i c a l  m a i n t e n a n c e  r e c o r d s ,  a n d  d e v i c e  u s a g e ,  t h e  m o d e l  f o r e c a s t s  o p t i m a l
+m a i n t e n a n c e  t i m i n g  a n d  i d e n t i f i e s  s p e c i f i c  c o m p o n e n t s  t h a t  m a y  n e e d  a t t e n t i o n .  T h i s  p r o a c t i v e  a p p r o a c h  a l l o w s
+t a r g e t e d  m a i n t e n a n c e ,  r e d u c i n g  u n n e c e s s a r y  r e p a i r s  a n d  c o s t s .  T h e  s o l u t i o n  e n h a n c e s  d e v i c e  r e l i a b i l i t y  a n d
+o p e r a t i o n a l  e f f i c i e n c y  b y  m i n i m i z i n g  u n e x p e c t e d  b r e a k d o w n s ,  e n s u r i n g  d e v i c e s  r e m a i n  f u n c t i o n a l  f o r  l o n g e r  p e r i o d s .
+T h i s  p r o j e c t  h i g h l i g h t s  m y  e x p e r t i s e  i n  m a c h i n e  l e a r n i n g  a n d  p r e d i c t i v e  a n a l y t i c s ,  d e m o n s t r a t i n g  h o w  A I  c a n  e f f e c t i v e l y
+m a i n t a i n  a n d  i m p r o v e  p e r f o r m a n c e  i n  I o T  h a r d w a r e  s y s t e m s .
+D e v e l o p e d  a  S e n t i m e n t  A n a l y s i s  a p p l i c a t i o n  t o  a n a l y z e  c u s t o m e r  f e e d b a c k  o n  V e r i f o n e  p r o d u c t s ,  a p p l y i n g  N L P
+t e c h n i q u e s  t o  e x t r a c t  i n s i g h t s  f r o m  u s e r  r e v i e w s .  U s i n g  P y t h o n  l i b r a r i e s  s u c h  a s  N L T K ,  S c i k i t - l e a r n ,  a n d  P a n d a s ,  I  b u i l t  a
+c l a s s i f i c a t i o n  m o d e l  t h a t  i d e n t i f i e s  s e n t i m e n t  a s  p o s i t i v e ,  n e g a t i v e ,  o r  n e u t r a l .  T h i s  a p p l i c a t i o n  h e l p s  V e r i f o n e  g a u g e
+c u s t o m e r  s a t i s f a c t i o n  a n d  p i n p o i n t  a r e a s  f o r  i m p r o v e m e n t .  A d d i t i o n a l l y ,  I  c r e a t e d  a  d a s h b o a r d  t h a t  v i s u a l i z e s  s e n t i m e n t
+t r e n d s  o v e r  t i m e ,  a l l o w i n g  t e a m s  t o  m o n i t o r  c u s t o m e r  o p i n i o n s  a c r o s s  p r o d u c t s .  T h i s  p r o j e c t  s h o w c a s e s  m y  s k i l l s  i n  N L P ,
+m a c h i n e  l e a r n i n g ,  a n d  d a t a  v i s u a l i z a t i o n ,  s u p p o r t i n g  d a t a - d r i v e n  d e c i s i o n s  t o  e n h a n c e  c u s t o m e r  e x p e r i e n c e  a n d  p r o d u c t
+q u a l i t y .
+P r e d i c t i v e  M a i n t e n a n c e  o f  V e r i f o n e  P a y m e n t  D e v i c e s :
+P R O J E C T S  I N  D E T A I L :
+D e v e l o p e d  a  G e n A I - p o w e r e d  q u e r y  o p t i m i z e r  u s i n g  A z u r e  O p e n A I ' s  L a r g e  L a n g u a g e  M o d e l  ( L L M )  t e c h n o l o g y ,  t r a i n e d
+o n  h i s t o r i c a l  q u e r i e s  t o  a n a l y z e  i n p u t ,  d e t e c t  i n e f f i c i e n c i e s ,  a n d  g e n e r a t e  o p t i m i z e d  v e r s i o n s ,  a u t o m a t i n g  t h e  q u e r y
+t u n i n g  p r o c e s s .  T h i s  A I - d r i v e n  s o l u t i o n  s i g n i f i c a n t l y  r e d u c e s  q u e r y  e x e c u t i o n  t i m e  a n d  e n h a n c e s  r e s o u r c e  u t i l i z a t i o n ,
+r e s u l t i n g  i n  n o t a b l e  p e r f o r m a n c e  i m p r o v e m e n t s .  D e s i g n e d  f o r  d a t a - i n t e n s i v e  a p p l i c a t i o n s ,  i t  h e l p s  d a t a  t e a m s  a c h i e v e
+s c a l a b l e  a n d  e f f i c i e n t  d a t a  p r o c e s s i n g .  B y  a u t o m a t i n g  o p t i m i z a t i o n ,  t h i s  t o o l  b o o s t s  p r o d u c t i v i t y  a n d  s u p p o r t s  c o m p l e x
+d a t a  w o r k f l o w s ,  m a k i n g  i t  i d e a l  f o r  o r g a n i z a t i o n s  l o o k i n g  t o  i m p r o v e  d a t a  p r o c e s s i n g  e f f i c i e n c y  a n d  s u p p o r t  b u s i n e s s
+d e c i s i o n - m a k i n g  w i t h  f a s t e r  i n s i g h t s .
+Q u e r y  O p t i m i z e r :
+I n  o u r  o r g a n i z a t i o n ,  m a n a g i n g  c o s t s  a c r o s s  m u l t i p l e  d a t a  s o u r c e s  a n d  b u s i n e s s  u n i t s  ( B U s )  w i t h  s u b - B U s  w a s  a  c o m p l e x
+c h a l l e n g e ,  a s  d a t a  w a s  t i e d  t o  v a r y i n g  w a r e h o u s e  n a m e s ,  s i z e s ,  a n d  q u e r i e s  e x e c u t e d  i n  t h e  S n o w f l a k e  d a t a b a s e .  T o  a d d r e s s
+t h i s ,  I  d e v e l o p e d  a  c o s t  f o r e c a s t i n g  a p p l i c a t i o n  l e v e r a g i n g  A z u r e  G e n A I ,  w h i c h  u t i l i z e s  h i s t o r i c a l  d a t a  t o  f o r e c a s t  c o s t s  f o r  t h e
+n e x t  7  d a y s ,  7  w e e k s ,  a n d  7  m o n t h s .  T h i s  s o l u t i o n  e n a b l e s  s t a k e h o l d e r s  t o  p r e d i c t  o p e r a t i o n a l  e x p e n s e s ,  o p t i m i z e  r e s o u r c e
+a l l o c a t i o n ,  a n d  i m p r o v e  f i n a n c i a l  p l a n n i n g .  B y  i n t e g r a t i n g  a d v a n c e d  A I  t e c h n i q u e s ,  t h e  a p p l i c a t i o n  n o t  o n l y  e n h a n c e s  c o s t
+t r a n s p a r e n c y  b u t  a l s o  s u p p o r t s  p r o a c t i v e  d e c i s i o n - m a k i n g .  I t s  a c c u r a c y  a n d  s c a l a b i l i t y  h a v e  s i g n i f i c a n t l y  s t r e a m l i n e d  b u d g e t i n g
+p r o c e s s e s ,  c o n t r i b u t i n g  t o  o p e r a t i o n a l  e f f i c i e n c y  a n d  l o n g - t e r m  s t r a t e g i c  p l a n n i n g  a c r o s s  t h e  o r g a n i z a t i o n .
+C o s t  F o r e c a s t i n g  A p p l i c a t i o n  u s i n g  A z u r e  G e n A I :
+D e v e l o p e d  S a m s u n g  C a r e B o t ,  a n  a d v a n c e d  A I  c h a t b o t  l e v e r a g i n g  A g e n t i c  R A G  ( R e t r i e v a l - A u g m e n t e d  G e n e r a t i o n )  t o  p r o v i d e
+r e a l - t i m e  a s s i s t a n c e  f o r  S a m s u n g  e l e c t r o n i c s  u s e r s .  T h e  c h a t b o t  i n t e g r a t e s  S a m s u n g ’ s  u s e r  m a n u a l s  w i t h  a  w e b  s e a r c h  t o o l ,
+e n a b l i n g  a c c u r a t e  t r o u b l e s h o o t i n g ,  p r o d u c t  g u i d a n c e ,  a n d  s u p p o r t  r e c o m m e n d a t i o n s .  B y  i n t e l l i g e n t l y  r e t r i e v i n g  a n d
+s u m m a r i z i n g  r e l e v a n t  i n f o r m a t i o n ,  i t  e n h a n c e s  c u s t o m e r  e x p e r i e n c e  a n d  r e d u c e s  s u p p o r t  o v e r h e a d .  T h i s  A I - d r i v e n  s o l u t i o n
+s t r e a m l i n e s  t e c h n i c a l  a s s i s t a n c e ,  e n s u r i n g  u s e r s  r e c e i v e  q u i c k ,  p r e c i s e ,  a n d  r e l i a b l e  r e s p o n s e s  t o  t h e i r  q u e r i e s ,  i m p r o v i n g
+o v e r a l l  s e r v i c e  e f f i c i e n c y .
+S a m s u n g  C a r e B o t  –  A I - P o w e r e d  C u s t o m e r  S u p p o r t  C h a t b o t :
+P R O J E C T S  I N  D E T A I L :
+A I  &  M L  D e v e l o p e r  a t  H a r m a n ,  M a r c h  2 0 2 4  -  J u n e  2 0 2 5
+2 0 1 0  -  2 0 1 4  |  B i j u  P a t n a i k  U n i v e r s i t y  o f  T e c h n o l o g y
+B a c h e l o r  D e g r e e  i n  E l e c t r o n i c s  a n d  T e l e c o m m u n i c a t i o n  E n g i n e e r i n g .
+A s  a  D a t a b a s e  E n g i n e e r  f o r  O A  a n d  P A  d a t a b a s e  a p p l i c a t i o n s ,  I  m a n a g e d  o r g a n i z a t i o n a l  a n d  e m p l o y e e  d a t a  t o  e n s u r e
+a c c u r a t e ,  t i m e l y  i n s i g h t s  f o r  d e c i s i o n - m a k i n g  a n d  p r o c e s s  i m p r o v e m e n t .  I  o p t i m i z e d  d a t a b a s e  p e r f o r m a n c e ,  e n a b l i n g
+e f f i c i e n t  d a t a  h a n d l i n g  a n d  f a s t e r  a c c e s s  t o  c r u c i a l  i n f o r m a t i o n ,  w h i c h  f a c i l i t a t e d  t r a c k i n g  o f  e m p l o y e e  t r a i n i n g ,
+d e v e l o p m e n t ,  a n d  o t h e r  k e y  m e t r i c s .  M y  r o l e  f o c u s e d  o n  e n h a n c i n g  d a t a - d r i v e n  p r o c e s s e s ,  e n a b l i n g  l e a d e r s h i p  t o  m a k e
+i n f o r m e d  d e c i s i o n s  a n d  s u p p o r t i n g  t h e  o r g a n i z a t i o n ’ s  s u c c e s s  t h r o u g h  w e l l - o r g a n i z e d ,  a c c e s s i b l e ,  a n d  r e l i a b l e
+i n f o r m a t i o n  m a n a g e m e n t .  T h i s  w o r k  c o n t r i b u t e d  t o  s t r e a m l i n e d  o p e r a t i o n s ,  i m p r o v e d  w o r k f o r c e  m a n a g e m e n t ,  a n d  a
+s o l i d  f o u n d a t i o n  f o r  o r g a n i z a t i o n a l  g r o w t h .
+E D U C A T I O N :
+O r g a n i z a t i o n a l  A u t h o r i t y  ( O A )  &  P e o p l e  A u t h o r i t y  ( P A )
+D e s i g n  a n d  m a i n t a i n  r o b u s t  d a t a b a s e  s t r u c t u r e s ,  e n s u r i n g  h i g h  p e r f o r m a n c e  a n d  e f f i c i e n t  d a t a  s t o r a g e  t h a t  s c a l e s  w i t h
+b u s i n e s s  n e e d s .
+C r a f t  a n d  o p t i m i z e  c o m p l e x  S Q L  q u e r i e s  t o  r e t r i e v e  a n d  m a n i p u l a t e  l a r g e  d a t a s e t s ,  s u p p o r t i n g  d a t a -  d r i v e n  d e c i s i o n -
+m a k i n g  a c r o s s  d e p a r t m e n t s .
+D e v e l o p ,  m o n i t o r ,  a n d  r e f i n e  E T L  p i p e l i n e s  t o  e n s u r e  s e a m l e s s  d a t a  f l o w  b e t w e e n  s y s t e m s ,  e n h a n c i n g  d a t a  a v a i l a b i l i t y  a n d
+a c c u r a c y .
+D i a g n o s e  a n d  r e s o l v e  p e r f o r m a n c e  b o t t l e n e c k s  t h r o u g h  i n d e x i n g ,  q u e r y  t u n i n g ,  a n d  s c h e m a  a d j u s t m e n t s ,  o p t i m i z i n g
+d a t a b a s e  r e s p o n s e  t i m e s .
+W o r k  c l o s e l y  w i t h  s o f t w a r e  d e v e l o p e r s ,  d a t a  s c i e n t i s t s ,  a n d  b u s i n e s s  a n a l y s t s  t o  u n d e r s t a n d  d a t a  r e q u i r e m e n t s  a n d  d e l i v e r
+e f f i c i e n t  s o l u t i o n s .
+U s e  a u t o m a t i o n  t o o l s  a n d  s c r i p t i n g  ( e . g . ,  P o w e r S h e l l ,  S Q L  s c r i p t s )  t o  s t r e a m l i n e  r e p e t i t i v e  t a s k s ,  b o o s t i n g  p r o d u c t i v i t y  a n d
+m i n i m i z i n g  e r r o r s .
+S u p p o r t  B I  t o o l s  ( e . g . ,  P o w e r  B I ,  T a b l e a u )  b y  s t r u c t u r i n g  d a t a  f o r  a n a l y t i c s  a n d  r e p o r t i n g ,  e n h a n c i n g  t h e  o r g a n i z a t i o n ’ s
+i n s i g h t s  a n d  r e p o r t i n g  c a p a b i l i t i e s .
+S h a r e  S Q L  e x p e r t i s e  w i t h  t e a m  m e m b e r s ,  a d v o c a t e  f o r  b e s t  p r a c t i c e s ,  a n d  a c t i v e l y  s e e k  i n n o v a t i v e  a p p r o a c h e s  t o  a d v a n c e
+d a t a b a s e  p e r f o r m a n c e  a n d  r e l i a b i l i t y .
+E x p e r t l y  s o u r c e ,  c l e a n ,  a n d  m a n a g e  d a t a  f r o m  d i v e r s e  o r i g i n s ,  i n c l u d i n g  d a t a b a s e s ,  A P I s ,  a n d  w e b  s c r a p i n g ,  e n s u r i n g  h i g h -
+q u a l i t y  i n p u t s  f o r  a n a l y s i s .
+L e v e r a g e  s t a t i s t i c a l  m e t h o d s  a n d  m a c h i n e  l e a r n i n g  t o  u n c o v e r  k e y  p a t t e r n s  a n d  a c t i o n a b l e  i n s i g h t s  t h a t  d r i v e  b u s i n e s s
+o u t c o m e s .
+C r e a t e  i m p a c t f u l  v i s u a l i z a t i o n s  a n d  r e p o r t s  t h a t  t r a n s l a t e  c o m p l e x  d a t a  i n t o  c l e a r ,  c o m p e l l i n g  i n s i g h t s  f o r  s t a k e h o l d e r s .
+B u i l d  a n d  o p t i m i z e  p r e d i c t i v e  m o d e l s  ( e . g . ,  r e g r e s s i o n ,  c l a s s i f i c a t i o n ,  n e u r a l  n e t w o r k s )  t o  f o r e c a s t  t r e n d s ,  e n a b l i n g
+p r o a c t i v e  b u s i n e s s  d e c i s i o n s .
+E n s u r e  m o d e l  a c c u r a c y  a n d  d e p e n d a b i l i t y  t h r o u g h  r i g o r o u s  v a l i d a t i o n  a n d  t e s t i n g ,  a l i g n i n g  w i t h  i n d u s t r y  s t a n d a r d s  a n d
+b u s i n e s s  o b j e c t i v e s .
+P a r t n e r  w i t h  b u s i n e s s  s t a k e h o l d e r s  t o  e m p o w e r  d a t a - d r i v e n  d e c i s i o n - m a k i n g  i n  a r e a s  l i k e  p r o d u c t  d e v e l o p m e n t ,  p r i c i n g ,
+a n d  m a r k e t i n g .
+P r e s e n t  a n a l y t i c a l  f i n d i n g s  t o  n o n - t e c h n i c a l  a u d i e n c e s ,  i n c l u d i n g  e x e c u t i v e s  a n d  c l i e n t s ,  m a k i n g  d a t a  a c c e s s i b l e  a n d
+i m p a c t f u l .
+S t a y  a t  t h e  f o r e f r o n t  o f  d a t a  s c i e n c e  a d v a n c e m e n t s ,  i n t e g r a t i n g  c u t t i n g - e d g e  t o o l s  a n d  b e s t  p r a c t i c e s  i n t o  d a i l y  w o r k .
+C o l l a b o r a t e  s e a m l e s s l y  w i t h  d a t a  s c i e n t i s t s ,  e n g i n e e r s ,  a n d  a n a l y s t s ,  f o s t e r i n g  a  u n i f i e d  a p p r o a c h  t o  a c h i e v i n g
+o r g a n i z a t i o n a l  o b j e c t i v e s .
+M e n t o r  c o l l e a g u e s ,  e n r i c h i n g  t h e  t e a m ’ s  d a t a  s c i e n c e  c a p a b i l i t i e s  a n d  a d v a n c i n g  c o l l e c t i v e  e x p e r t i s e  t o  n e w  h e i g h t s .
+D a t a b a s e  E n g i n e e r  a t  T e c h  M a h i n d r a ,  M a y  2 0 1 7  -  M a r c h  2 0 2 1
+R e s p o n s i b i l i t i e s  a s  D a t a  S c i e n t i s t  a t  V e r i f o n e :
+R e s p o n s i b i l i t i e s  a s  D a t a b a s e  E n g i n e e r  a t  T e c h  M a h i n d r a :
+P R O J E C T S  I N  D E T A I L :
+D e v e l o p e d  c o m p r e h e n s i v e  s a l e s  t r e n d  r e p o r t s  f o r  V e r i f o n e  p r o d u c t s  a c r o s s  v a r i o u s  r e g i o n s  a n d  c o u n t r i e s  u s i n g  T a b l e a u .
+T h i s  p r o j e c t  i n v o l v e d  i n t e g r a t i n g  a n d  v i s u a l i z i n g  s a l e s  d a t a  t o  c r e a t e  i n t e r a c t i v e  d a s h b o a r d s ,  e n a b l i n g  s t a k e h o l d e r s  t o
+i d e n t i f y  p a t t e r n s  a n d  t r e n d s  i n  c o n s u m e r  b e h a v i o r .  B y  a n a l y z i n g  s a l e s  p e r f o r m a n c e  a c r o s s  g e o g r a p h i c  l o c a t i o n s ,  t h e
+r e p o r t s  p r o v i d e d  a c t i o n a b l e  i n s i g h t s  i n t o  h i g h - p e r f o r m i n g  r e g i o n s ,  s e a s o n a l  d e m a n d  f l u c t u a t i o n s ,  a n d  m a r k e t
+o p p o r t u n i t i e s .  T h e  i n t u i t i v e  v i s u a l i z a t i o n s  a l l o w e d  f o r  q u i c k  d e c i s i o n - m a k i n g ,  h e l p i n g  t h e  o r g a n i z a t i o n  o p t i m i z e  s a l e s
+s t r a t e g i e s  a n d  r e s o u r c e  a l l o c a t i o n .  T h i s  s o l u t i o n  s i g n i f i c a n t l y  i m p r o v e d  t h e  a b i l i t y  t o  t r a c k  p e r f o r m a n c e  m e t r i c s ,  a l i g n  s a l e s
+o b j e c t i v e s ,  a n d  e n h a n c e  o v e r a l l  b u s i n e s s  p l a n n i n g  a n d  m a r k e t  r e s p o n s i v e n e s s .
+S a l e s  T r e n d s  R e p o r t :
+D e v e l o p e d  a  T i m e  S e r i e s  F o r e c a s t i n g  m o d e l  u s i n g  P y t h o n  a n d  m a c h i n e  l e a r n i n g  a l g o r i t h m s  t o  p r e d i c t  U P I  t r a n s a c t i o n
+t r e n d s ,  f o c u s i n g  o n  d a i l y  t r a n s a c t i o n  c o u n t s  a n d  a m o u n t s .  T h e  m o d e l  l e v e r a g e d  A R I M A ,  P r o p h e t ,  a n d  L S T M  a l g o r i t h m s
+t o  c a p t u r e  s e a s o n a l  p a t t e r n s  a n d  c o m p l e x  t r e n d s ,  f o r e c a s t i n g  u p  t o  o n e  m o n t h  i n  a d v a n c e .  U s i n g  l i b r a r i e s  l i k e  P a n d a s ,
+M a t p l o t l i b ,  a n d  S c i k i t - l e a r n ,  I  p r e p a r e d  a n d  v i s u a l i z e d  t h e  d a t a ,  r e f i n i n g  m o d e l  a c c u r a c y  t h r o u g h  i t e r a t i v e  t e s t i n g .  T h i s
+p r o j e c t  p r o v i d e d  f i n a n c i a l  i n s t i t u t i o n s  w i t h  a c t i o n a b l e  i n s i g h t s  t o  o p t i m i z e  U P I  p a y m e n t  s y s t e m s ,  a l l o c a t e  r e s o u r c e s
+e f f e c t i v e l y ,  a n d  e n h a n c e  c u s t o m e r  s a t i s f a c t i o n  b y  a n t i c i p a t i n g  t r a n s a c t i o n  d e m a n d  a n d  p e a k  p e r i o d s .
+T i m e  S e r i e s  F o r e c a s t i n g  o f  U P I  T r a n s a c t i o n s :

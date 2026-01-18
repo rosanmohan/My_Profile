@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Other
+coverage/
+.docusaurus/
+.cache/
+tmp/
+list_dir_output.txt
