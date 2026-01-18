@@ -28,6 +28,9 @@ export interface Profile {
     linkedin: string;
     github?: string;
     pan?: string;
+    pan_url?: string;
+    aadhaar?: string;
+    aadhaar_url?: string;
     dob?: string;
     location: string;
     image_url?: string;

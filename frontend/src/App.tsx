@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User, Github, CreditCard, Calendar } from 'lucide-react'
+import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from './types'
 import { EditableText } from './components/EditableText'
@@ -20,6 +20,7 @@ function App() {
     // State for selected item for Modal view
     const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
     const [expandedProject, setExpandedProject] = useState<number | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
 
     useEffect(() => {
         fetchData();
@@ -193,6 +194,18 @@ function App() {
             reader.onloadend = () => {
                 const base64String = reader.result as string;
                 updateProfile('image_url', base64String);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleDocumentUpload = (field: 'pan_url' | 'aadhaar_url', e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                updateProfile(field, base64String);
             };
             reader.readAsDataURL(file);
         }
@@ -579,8 +592,8 @@ function App() {
             <header className="px-6 py-4 glass-card mx-4 mt-4 mb-2 flex flex-col md:flex-row justify-between items-center shadow-sm shrink-0">
                 <div className="flex flex-col md:flex-row items-center gap-6">
                     {/* Profile Photo */}
-                    <div className="relative group shrink-0">
-                        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-200">
+                    <div className="relative group shrink-0" onClick={() => !isEditing && data.profile.image_url && setPreviewImage(data.profile.image_url)}>
+                        <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-200 ${!isEditing && data.profile.image_url ? 'cursor-pointer' : ''}`}>
                             {data.profile.image_url ? (
                                 <img src={data.profile.image_url} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
@@ -594,6 +607,11 @@ function App() {
                                 <Camera size={20} className="text-white" />
                                 <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
                             </label>
+                        )}
+                        {!isEditing && data.profile.image_url && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                <Eye className="text-white drop-shadow-md" size={24} />
+                            </div>
                         )}
                     </div>
 
@@ -661,6 +679,34 @@ function App() {
                         <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors" title="PAN No">
                             <CreditCard size={14} />
                             <EditableText value={data.profile.pan || 'PAN No'} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} />
+                            {isEditing && (
+                                <label className="cursor-pointer text-indigo-300 hover:text-indigo-600 ml-1" title="Upload PAN Image">
+                                    <Upload size={12} />
+                                    <input type="file" accept="image/*,application/pdf" className="hidden" onChange={(e) => handleDocumentUpload('pan_url', e)} />
+                                </label>
+                            )}
+                            {!isEditing && data.profile.pan_url && (
+                                <a href={data.profile.pan_url} download={`PAN_${data.profile.name}`} className="text-indigo-400 hover:text-indigo-800 ml-1" title="Download PAN Card" onClick={e => e.stopPropagation()}>
+                                    <Download size={12} />
+                                </a>
+                            )}
+                        </div>
+                    )}
+                    {(isEditing || data.profile.aadhaar) && (
+                        <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors" title="Aadhaar No">
+                            <FileText size={14} />
+                            <EditableText value={data.profile.aadhaar || 'Aadhaar No'} onChange={(v) => updateProfile('aadhaar', v)} isEditing={isEditing} />
+                            {isEditing && (
+                                <label className="cursor-pointer text-indigo-300 hover:text-indigo-600 ml-1" title="Upload Aadhaar Image">
+                                    <Upload size={12} />
+                                    <input type="file" accept="image/*,application/pdf" className="hidden" onChange={(e) => handleDocumentUpload('aadhaar_url', e)} />
+                                </label>
+                            )}
+                            {!isEditing && data.profile.aadhaar_url && (
+                                <a href={data.profile.aadhaar_url} download={`Aadhaar_${data.profile.name}`} className="text-indigo-400 hover:text-indigo-800 ml-1" title="Download Aadhaar Card" onClick={e => e.stopPropagation()}>
+                                    <Download size={12} />
+                                </a>
+                            )}
                         </div>
                     )}
                     {(isEditing || data.profile.dob) && (
@@ -822,6 +868,40 @@ function App() {
                     </section>
                 </article>
             </main>
+            {/* Image Preview Modal */}
+            <AnimatePresence>
+                {previewImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 cursor-pointer"
+                        onClick={() => setPreviewImage(null)}
+                    >
+                        <div className="relative max-w-4xl max-h-[90vh] flex flex-col items-center">
+                            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+                            <img src={previewImage} alt="Preview" className="max-w-full max-h-[80vh] rounded shadow-2xl object-contain bg-white" onClick={e => e.stopPropagation()} />
+                            <div className="mt-4 flex gap-4">
+                                <a
+                                    href={previewImage}
+                                    download="image_download"
+                                    className="btn-primary flex items-center gap-2"
+                                    onClick={e => e.stopPropagation()}
+                                >
+                                    <Download size={20} /> Download Image
+                                </a>
+                                <button
+                                    onClick={() => setPreviewImage(null)}
+                                    className="btn-secondary text-white border-white/20 hover:bg-white/10"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     )
 }
