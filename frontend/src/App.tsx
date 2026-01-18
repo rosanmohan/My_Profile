@@ -614,26 +614,26 @@ function App() {
                         />
                     </div>
                 </div>
-                <div className="flex flex-wrap justify-center gap-4 mt-2 md:mt-0 text-gray-600 text-sm">
-                    <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                <div className="flex flex-wrap justify-center md:justify-end gap-2 mt-4 md:mt-0 max-w-xl">
+                    <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <Mail size={14} />
                         {isEditing ? (
                             <EditableText value={data.profile.email} onChange={(v) => updateProfile('email', v)} isEditing={true} />
                         ) : (
-                            <a href={`mailto:${data.profile.email}`} className="hover:underline">
+                            <a href={`mailto:${data.profile.email}`} className="hover:underline truncate max-w-[150px]">
                                 {data.profile.email}
                             </a>
                         )}
                     </div>
-                    <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                    <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <Phone size={14} />
                         <EditableText value={data.profile.phone} onChange={(v) => updateProfile('phone', v)} isEditing={isEditing} />
                     </div>
-                    <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                    <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <MapPin size={14} />
                         <EditableText value={data.profile.location} onChange={(v) => updateProfile('location', v)} isEditing={isEditing} />
                     </div>
-                    <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                    <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <Linkedin size={14} />
                         {isEditing ? (
                             <EditableText value={data.profile.linkedin} onChange={(v) => updateProfile('linkedin', v)} isEditing={true} />
@@ -646,7 +646,7 @@ function App() {
 
                     {/* New Fields */}
                     {(isEditing || data.profile.github) && (
-                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                        <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                             <Github size={14} />
                             {isEditing ? (
                                 <EditableText value={data.profile.github || 'GitHub URL'} onChange={(v) => updateProfile('github', v)} isEditing={true} />
@@ -658,13 +658,13 @@ function App() {
                         </div>
                     )}
                     {(isEditing || data.profile.pan) && (
-                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors" title="PAN No">
+                        <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors" title="PAN No">
                             <CreditCard size={14} />
                             <EditableText value={data.profile.pan || 'PAN No'} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} />
                         </div>
                     )}
                     {(isEditing || data.profile.dob) && (
-                        <div className="flex items-center gap-1 hover:text-blue-600 transition-colors" title="Date of Birth">
+                        <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors" title="Date of Birth">
                             <Calendar size={14} />
                             <EditableText value={data.profile.dob || 'DOB (YYYY-MM-DD)'} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} />
                         </div>
