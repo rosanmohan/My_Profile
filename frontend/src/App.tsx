@@ -378,7 +378,7 @@ function App() {
     };
 
     return (
-        <div className="h-screen w-full flex flex-col overflow-hidden bg-gray-50 text-gray-800 font-sans">
+        <div className="min-h-screen w-full flex flex-col bg-gray-50 text-gray-800 font-sans lg:h-screen lg:overflow-hidden overflow-auto">
             <AnimatePresence>
                 {/* Admin Login Modal */}
                 {showLogin && (
@@ -672,11 +672,11 @@ function App() {
                 </div>
             </header>
 
-            {/* MAIN DASHBOARD CONTENT - Scrollable Grid */}
-            <main className="flex-1 overflow-hidden p-4 pt-0 grid grid-cols-1 lg:grid-cols-12 gap-4">
+            {/* MAIN DASHBOARD CONTENT - Scrollable Grid on Desktop, Stacked on Mobile */}
+            <main className="flex-1 p-4 pt-0 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:overflow-hidden h-auto lg:h-full">
 
-                {/* LEFT COLUMN: Summary, Skills, Education (Scrollable) */}
-                <aside className="lg:col-span-5 flex flex-col gap-4 overflow-y-auto pr-2 pb-20 scrollbar-hide">
+                {/* LEFT COLUMN: Summary, Skills, Education */}
+                <aside className="lg:col-span-5 flex flex-col gap-4 lg:overflow-y-auto lg:pr-2 lg:pb-20 scrollbar-hide">
                     {/* Summary Card */}
                     <section className="glass-card p-5">
                         <h3 className="text-xs font-extrabold uppercase tracking-wider text-black mb-3">About Me</h3>
@@ -759,8 +759,8 @@ function App() {
                     </section>
                 </aside>
 
-                {/* RIGHT COLUMN: Experience, Projects (Scrollable) */}
-                <article className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto pr-2 pb-20 scrollbar-hide">
+                {/* RIGHT COLUMN: Experience, Projects */}
+                <article className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 lg:overflow-y-auto lg:pr-2 lg:pb-20 scrollbar-hide">
 
                     {/* Experience List (Click to Open Modal) */}
                     <section className="glass-card p-5">
