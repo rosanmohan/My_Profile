@@ -12,6 +12,7 @@ function App() {
     const [data, setData] = useState<ResumeData | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [serverWakeup, setServerWakeup] = useState(false);
 
     const [isAdmin, setIsAdmin] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
@@ -29,13 +30,17 @@ function App() {
     }, []);
 
     const fetchData = async () => {
+        // Show "Waking up..." message if loading takes > 3s
+        const timer = setTimeout(() => setServerWakeup(true), 3000);
         try {
             const res = await axios.get(API_URL);
             setData(res.data);
         } catch (err) {
             console.error(err);
         } finally {
+            clearTimeout(timer);
             setLoading(false);
+            setServerWakeup(false);
         }
     };
 
@@ -68,7 +73,20 @@ function App() {
         }
     };
 
-    if (loading) return <div className="flex items-center justify-center h-screen bg-gray-50 text-gray-600">Loading...</div>;
+    if (loading) return (
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-50 text-gray-600 gap-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <p className="font-semibold">Loading Portfolio...</p>
+            {serverWakeup && (
+                <div className="text-center max-w-md px-6 animate-pulse text-sm text-orange-600 bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <p className="font-bold mb-1">Free Server detected!</p>
+                    <p>The backend is waking up from sleep mode.</p>
+                    <p>This may take up to <span className="font-bold">60 seconds</span>.</p>
+                    <p className="mt-2 text-xs text-gray-500">Please wait, it will load automatically.</p>
+                </div>
+            )}
+        </div>
+    );
     if (!data) return <div className="flex items-center justify-center h-screen bg-gray-50 text-gray-600">Error loading data</div>;
 
     const updateProfile = (field: keyof typeof data.profile, value: string) => {
