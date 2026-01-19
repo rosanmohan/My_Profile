@@ -272,12 +272,37 @@ function App() {
         if (data.profile.aadhaar) personalIds.push(data.profile.aadhaar);
 
         if (data.profile.dob) {
-            // Check if user already typed "DOB" inside the field to avoid "DOB: DOB..."
-            const dobLower = data.profile.dob.toLowerCase();
-            if (dobLower.includes('dob') || dobLower.includes('date')) {
-                personalIds.push(data.profile.dob);
+            // value is likely "DOB (13-04-1990)" or just "13-04-1990"
+            // Extract the date part: Look for DD-MM-YYYY
+            const dateMatch = data.profile.dob.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+
+            if (dateMatch) {
+                const day = parseInt(dateMatch[1]);
+                const month = parseInt(dateMatch[2]);
+                const year = parseInt(dateMatch[3]); // or dateMatch[3]
+
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const getSuffix = (d: number) => {
+                    if (d > 3 && d < 21) return 'th';
+                    switch (d % 10) {
+                        case 1: return "st";
+                        case 2: return "nd";
+                        case 3: return "rd";
+                        default: return "th";
+                    }
+                };
+
+                // Formatted: "13th April 1990"
+                const formattedDate = `${day}${getSuffix(day)} ${months[month - 1]} ${year}`;
+                personalIds.push(`DOB: ${formattedDate}`);
             } else {
-                personalIds.push(`DOB: ${data.profile.dob}`);
+                // Fallback if no pattern match
+                const dobLower = data.profile.dob.toLowerCase();
+                if (dobLower.includes('dob') || dobLower.includes('date')) {
+                    personalIds.push(data.profile.dob);
+                } else {
+                    personalIds.push(`DOB: ${data.profile.dob}`);
+                }
             }
         }
 
