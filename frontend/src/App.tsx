@@ -781,7 +781,33 @@ function App() {
                     {(isEditing || data.profile.dob) && (
                         <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors" title="Date of Birth">
                             <Calendar size={14} />
-                            <EditableText value={data.profile.dob || 'DOB (YYYY-MM-DD)'} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} />
+                            {isEditing ? (
+                                <EditableText value={data.profile.dob || 'DOB (YYYY-MM-DD)'} onChange={(v) => updateProfile('dob', v)} isEditing={true} />
+                            ) : (
+                                <span>
+                                    {(() => {
+                                        const raw = data.profile.dob || 'Add DOB';
+                                        const dateMatch = raw.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+                                        if (dateMatch) {
+                                            const day = parseInt(dateMatch[1]);
+                                            const month = parseInt(dateMatch[2]);
+                                            const year = parseInt(dateMatch[3]);
+                                            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                                            const getSuffix = (d: number) => {
+                                                if (d > 3 && d < 21) return 'th';
+                                                switch (d % 10) {
+                                                    case 1: return "st";
+                                                    case 2: return "nd";
+                                                    case 3: return "rd";
+                                                    default: return "th";
+                                                }
+                                            };
+                                            return `${day}${getSuffix(day)} ${months[month - 1]} ${year}`;
+                                        }
+                                        return raw;
+                                    })()}
+                                </span>
+                            )}
                         </div>
                     )}
                 </div>
