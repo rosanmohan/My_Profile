@@ -920,6 +920,10 @@ function App() {
                 )}
             </AnimatePresence>
 
+            {/* Version Footer for Debugging */}
+            <footer className="py-4 text-center text-xs text-gray-400">
+                v1.2 | Last Updated: {new Date().toLocaleString()}
+            </footer>
         </div>
     )
 }
