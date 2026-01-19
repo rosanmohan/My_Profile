@@ -270,7 +270,16 @@ function App() {
         const personalIds = [];
         if (data.profile.pan) personalIds.push(data.profile.pan);
         if (data.profile.aadhaar) personalIds.push(data.profile.aadhaar);
-        if (data.profile.dob) personalIds.push(`DOB: ${data.profile.dob}`);
+
+        if (data.profile.dob) {
+            // Check if user already typed "DOB" inside the field to avoid "DOB: DOB..."
+            const dobLower = data.profile.dob.toLowerCase();
+            if (dobLower.includes('dob') || dobLower.includes('date')) {
+                personalIds.push(data.profile.dob);
+            } else {
+                personalIds.push(`DOB: ${data.profile.dob}`);
+            }
+        }
 
         if (personalIds.length > 0) {
             doc.text(personalIds.join(" | "), pageWidth / 2, yPos, { align: 'center' });
