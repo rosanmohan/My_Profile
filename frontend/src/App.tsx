@@ -627,13 +627,17 @@ function App() {
                             </label>
                         )}
                         {!isEditing && data.profile.image_url && (
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-full cursor-pointer z-10">
                                 <Eye className="text-white drop-shadow-md" size={24} />
                             </div>
                         )}
                     </div>
 
                     <div className="text-center md:text-left">
+                        {/* Debug Status */}
+                        <div className="text-[10px] text-red-500 mb-1">
+                            DEBUG: Edit={isEditing ? 'YES' : 'NO'} | Admin={isAdmin ? 'YES' : 'NO'} | Img={data.profile.image_url ? 'YES' : 'NO'}
+                        </div>
                         <EditableText
                             value={data.profile.name}
                             onChange={(v) => updateProfile('name', v)}
