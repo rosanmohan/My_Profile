@@ -259,8 +259,25 @@ function App() {
         yPos += 8;
 
         doc.setFontSize(10);
-        doc.text(`${data.profile.email} | ${data.profile.phone} | ${data.profile.location}`, pageWidth / 2, yPos, { align: 'center' });
-        yPos += 15;
+        let contactInfo = `${data.profile.email} | ${data.profile.phone} | ${data.profile.location}`;
+        if (data.profile.github) {
+            const cleanGithub = data.profile.github.replace(/^https?:\/\//, '');
+            contactInfo += ` | ${cleanGithub}`;
+        }
+        doc.text(contactInfo, pageWidth / 2, yPos, { align: 'center' });
+        yPos += 6;
+
+        const personalIds = [];
+        if (data.profile.pan) personalIds.push(data.profile.pan);
+        if (data.profile.aadhaar) personalIds.push(data.profile.aadhaar);
+        if (data.profile.dob) personalIds.push(`DOB: ${data.profile.dob}`);
+
+        if (personalIds.length > 0) {
+            doc.text(personalIds.join(" | "), pageWidth / 2, yPos, { align: 'center' });
+            yPos += 10;
+        } else {
+            yPos += 5;
+        }
 
         // Divider
         doc.setDrawColor(200, 200, 200);
