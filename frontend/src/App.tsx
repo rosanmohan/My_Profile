@@ -646,7 +646,7 @@ function App() {
                             onChange={(v) => updateProfile('title', v)}
                             isEditing={isEditing}
                             tag="p"
-                            className="text-gray-800 font-medium"
+                            className="text-orange-600 font-medium"
                         />
                     </div>
                 </div>
