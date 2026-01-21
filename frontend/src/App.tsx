@@ -358,6 +358,166 @@ function App() {
                             ))}
                         </div>
                     </section>
+                    {/* Experience */}
+                    <section className="glass-card p-5">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-purple-500 pl-2">Professional Experience</h3>
+                            {isEditing && <button onClick={addExperience} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
+                        </div>
+                        <div className="flex flex-col gap-6 relative">
+                            {/* Line connecting items */}
+                            <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-200 hidden md:block"></div>
+
+                            {data.experience.map((exp, index) => (
+                                <div key={index} className="relative pl-0 md:pl-12 group">
+                                    {/* Timeline Dot */}
+                                    <div className="hidden md:flex absolute left-0 top-1.5 w-10 h-10 bg-white border-2 border-purple-100 rounded-full items-center justify-center shrink-0 z-10 group-hover:border-purple-300 transition-colors">
+                                        <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                    </div>
+
+                                    <div className={`glass-card p-4 transition-all hover:shadow-md ${expandedExperience === index ? 'ring-2 ring-purple-100' : ''}`}>
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div className="flex-1">
+                                                <EditableText value={exp.role} onChange={(v) => updateExperience(index, 'role', v)} isEditing={isEditing} className="font-bold text-lg text-slate-800" />
+                                                <EditableText value={exp.company} onChange={(v) => updateExperience(index, 'company', v)} isEditing={isEditing} className="text-purple-600 font-medium" />
+                                            </div>
+                                            {isEditing && <button onClick={() => removeExperience(index)} className="text-red-400 hover:text-red-600 p-1"><Trash2 size={16} /></button>}
+                                        </div>
+                                        <EditableText value={exp.duration} onChange={(v) => updateExperience(index, 'duration', v)} isEditing={isEditing} className="text-sm text-slate-500 mb-3 block" />
+
+                                        {/* Description with Expand/Collapse for better UI */}
+                                        <div className="relative">
+                                            <div className={`text-slate-600 leading-relaxed ${expandedExperience === index ? '' : 'line-clamp-3'}`}>
+                                                <EditableText value={exp.description} onChange={(v) => updateExperience(index, 'description', v)} isEditing={isEditing} multiline />
+                                            </div>
+                                            {(exp.description.length > 150 || isEditing) && (
+                                                <button
+                                                    onClick={() => setExpandedExperience(expandedExperience === index ? null : index)}
+                                                    className="text-xs text-purple-500 hover:text-purple-700 mt-1 font-medium flex items-center gap-1"
+                                                >
+                                                    {expandedExperience === index ? 'Show Less' : 'Show More'} <ChevronRight size={12} className={`transition-transform ${expandedExperience === index ? 'rotate-90' : ''}`} />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Projects */}
+                    <section className="glass-card p-5">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-orange-500 pl-2">Featured Projects</h3>
+                            {isEditing && <button onClick={addProject} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {data.projects.map((proj, index) => (
+                                <div key={index} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-5 border border-slate-100 flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <EditableText value={proj.title} onChange={(v) => updateProject(index, 'title', v)} isEditing={isEditing} className="font-bold text-lg text-slate-800" />
+                                        {isEditing && <button onClick={() => removeProject(index)} className="text-red-400 hover:text-red-600"><Trash2 size={16} /></button>}
+                                    </div>
+
+                                    <div className="mb-3">
+                                        {isEditing ? (
+                                            <input
+                                                className="w-full text-xs border-b border-orange-200 outline-none py-1 text-slate-500"
+                                                value={proj.technologies.join(', ')}
+                                                onChange={(e) => updateProject(index, 'technologies', e.target.value)}
+                                                placeholder="Tech stack (comma separated)"
+                                            />
+                                        ) : (
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {proj.technologies.map((tech, t) => (
+                                                    <span key={t} className="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full font-medium">{tech}</span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="flex-1 text-sm text-slate-600 mb-4">
+                                        <EditableText value={proj.description} onChange={(v) => updateProject(index, 'description', v)} isEditing={isEditing} multiline className="line-clamp-4" />
+                                    </div>
+
+                                    {/* Project Responsibilities (Hidden by default, expandable) */}
+                                    <div className="mt-auto border-t border-slate-50 pt-3">
+                                        <button
+                                            onClick={() => setExpandedProject(expandedProject === index ? null : index)}
+                                            className="text-xs text-slate-400 hover:text-orange-500 flex items-center gap-1 w-full justify-center transition-colors"
+                                        >
+                                            {expandedProject === index ? 'Hide Details' : 'View Responsibilities'} <ChevronRight size={12} className={`transition-transform ${expandedProject === index ? 'rotate-90' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {expandedProject === index && (
+                                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                                    <div className="pt-2 text-xs text-slate-500 italic">
+                                                        <EditableText
+                                                            value={proj.responsibilities || "Add responsibilities..."}
+                                                            onChange={(v) => updateProject(index, 'responsibilities', v)}
+                                                            isEditing={isEditing}
+                                                            multiline
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Education */}
+                    <section className="glass-card p-5">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-green-500 pl-2">Education</h3>
+                            {isEditing && <button onClick={addEducation} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {data.education && data.education.map((edu, index) => (
+                                <div key={index} className="bg-green-50/50 p-4 rounded-lg border border-green-100 relative group">
+                                    {isEditing && <button onClick={() => removeEducation(index)} className="absolute top-2 right-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>}
+                                    <EditableText value={edu.degree} onChange={(v) => updateEducation(index, 'degree', v)} isEditing={isEditing} className="font-bold text-slate-800 block mb-1" />
+                                    <EditableText value={edu.institution} onChange={(v) => updateEducation(index, 'institution', v)} isEditing={isEditing} className="text-sm text-green-700 block mb-1" />
+                                    <EditableText value={edu.year} onChange={(v) => updateEducation(index, 'year', v)} isEditing={isEditing} className="text-xs text-slate-500" />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Personal & Documents (View Only / Admin) */}
+                    <section className="glass-card p-5">
+                        <h3 className="text-lg font-bold text-slate-700 border-l-4 border-gray-500 pl-2 mb-4">Personal Details & Documents</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
+                                    <span className="text-sm font-medium text-slate-600">Date of Birth</span>
+                                    <EditableText value={data.profile.dob || ''} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold" />
+                                </div>
+                                <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
+                                    <span className="text-sm font-medium text-slate-600">Location</span>
+                                    <EditableText value={data.profile.location} onChange={(v) => updateProfile('location', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold" />
+                                </div>
+                            </div>
+                            <div className="space-y-3">
+                                {/* PAN & Aadhaar - Only visible if editing or value exists */}
+                                {(isEditing || data.profile.pan) && (
+                                    <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
+                                        <span className="text-sm font-medium text-slate-600">PAN Number</span>
+                                        <EditableText value={data.profile.pan || ''} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold font-mono" />
+                                    </div>
+                                )}
+                                {(isEditing || (data.profile.aadhaar || '')) && (
+                                    <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
+                                        <span className="text-sm font-medium text-slate-600">Aadhaar</span>
+                                        <EditableText value={data.profile.aadhaar || ''} onChange={(v) => updateProfile('aadhaar', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold font-mono" />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
                 </article>
             </main>
         </div>

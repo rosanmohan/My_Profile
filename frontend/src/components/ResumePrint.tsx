@@ -70,6 +70,27 @@ export const ResumePrint = forwardRef<HTMLDivElement, ResumePrintProps>(({ data 
                                     <span className="truncate">{data.profile.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}</span>
                                 </div>
                             )}
+
+                            {/* PERSONAL DETAILS (New) */}
+                            <div className="border-t border-slate-700 pt-3 mt-1"></div>
+                            {data.profile.dob && (
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Date of Birth</span>
+                                    <span className="text-slate-300">{data.profile.dob}</span>
+                                </div>
+                            )}
+                            {data.profile.pan && (
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">PAN</span>
+                                    <span className="text-slate-300 font-mono text-xs">{data.profile.pan}</span>
+                                </div>
+                            )}
+                            {data.profile.aadhaar && (
+                                <div className="flex flex-col mt-1">
+                                    <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Aadhaar</span>
+                                    <span className="text-slate-300 font-mono text-xs">{data.profile.aadhaar}</span>
+                                </div>
+                            )}
                         </div>
 
                         {/* EDUCATION */}
