@@ -2,131 +2,164 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Link, Image } from '@react-pdf/renderer';
 import { Profile, Experience, Project } from '../types';
 
-// Register a nice font (optional, using standard Helvetica for reliability first)
-// Font.register({ family: 'Open Sans', src: 'https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0e.ttf' });
-
+// Register standard fonts
 const styles = StyleSheet.create({
     page: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         backgroundColor: '#FFFFFF',
         fontFamily: 'Helvetica',
+        paddingBottom: 30, // Footer space
     },
-    sidebar: {
-        width: '30%',
-        backgroundColor: '#2d3748', // Dark gray/blue like slate-800
-        color: 'white',
-        padding: 20,
-        height: '100%',
-    },
-    main: {
-        width: '70%',
+    // HEADER SECTION
+    header: {
+        backgroundColor: '#1e293b', // Slate-800
         padding: 24,
-        paddingTop: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        color: 'white',
+        borderBottomWidth: 4,
+        borderBottomColor: '#f97316', // Orange-500
     },
-    // Sidebar items
-    sidebarTitle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        color: '#fb923c', // Orange-400
-        textTransform: 'uppercase',
-        borderBottom: '1 solid #4a5568',
-        paddingBottom: 4,
+    headerContent: {
+        marginLeft: 20,
+        flex: 1,
     },
-    sidebarText: {
-        fontSize: 9,
-        marginBottom: 4,
-        lineHeight: 1.4,
-        color: '#e2e8f0',
-    },
-    sidebarSection: {
-        marginBottom: 20,
-    },
-    skillBadge: {
-        backgroundColor: '#4a5568',
-        padding: '3 6',
-        marginBottom: 4,
-        marginRight: 4,
-        borderRadius: 4,
-        fontSize: 8,
-    },
-    // Main Content Items
     name: {
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: 'bold',
-        marginBottom: 4,
-        color: '#1a202c',
         textTransform: 'uppercase',
+        marginBottom: 4,
     },
     title: {
         fontSize: 14,
-        color: '#dd6b20', // Orange-600
-        marginBottom: 16,
-        fontWeight: 'medium',
+        color: '#fdba74', // Orange-300
+        marginBottom: 8,
     },
+    contactRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 12,
+        marginTop: 4,
+    },
+    contactItem: {
+        fontSize: 9,
+        color: '#cbd5e1',
+        marginRight: 10,
+    },
+    profileImage: {
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        objectFit: 'cover',
+        borderWidth: 2,
+        borderColor: 'white',
+    },
+    // MAIN LAYOUT
+    columnsContainer: {
+        flexDirection: 'row',
+        padding: 24,
+        flex: 1,
+    },
+    // LEFT COLUMN (Small)
+    leftColumn: {
+        width: '32%',
+        paddingRight: 16,
+        borderRightWidth: 1,
+        borderRightColor: '#e2e8f0',
+    },
+    // RIGHT COLUMN (Large)
+    rightColumn: {
+        width: '68%',
+        paddingLeft: 16,
+    },
+    // SECTIONS
     sectionTitle: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: 'bold',
-        marginBottom: 10,
-        marginTop: 10,
-        color: '#2d3748',
+        color: '#334155', // Slate-700
         textTransform: 'uppercase',
-        borderBottom: '2 solid #e2e8f0',
-        paddingBottom: 4,
+        marginBottom: 8,
+        marginTop: 16, // Spacing before section
+        borderBottomWidth: 1,
+        borderBottomColor: '#cbd5e1',
+        paddingBottom: 2,
     },
+    // Left Col Items
+    skillCategory: {
+        marginBottom: 10,
+    },
+    skillTitle: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#ea580c', // Orange-600
+        marginBottom: 4,
+    },
+    skillBadge: {
+        fontSize: 9,
+        color: '#475569',
+        backgroundColor: '#f1f5f9',
+        padding: '2 4',
+        marginBottom: 2,
+        borderRadius: 2,
+    },
+    educationItem: {
+        marginBottom: 10,
+    },
+    // Right Col Items
     text: {
         fontSize: 10,
-        marginBottom: 6,
-        lineHeight: 1.4,
-        color: '#4a5568',
-        textAlign: 'justify'
+        color: '#475569',
+        lineHeight: 1.5,
+        textAlign: 'justify',
+        marginBottom: 8,
     },
-    // Experience Item
     expItem: {
-        marginBottom: 12,
+        marginBottom: 14,
+    },
+    expHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+        marginBottom: 2,
     },
     expRole: {
         fontSize: 11,
         fontWeight: 'bold',
-        color: '#1a202c',
-    },
-    expCompany: {
-        fontSize: 10,
-        color: '#dd6b20',
-        marginBottom: 2,
+        color: '#1e293b',
     },
     expDate: {
         fontSize: 9,
-        color: '#718096',
+        color: '#64748b',
         fontStyle: 'italic',
+    },
+    expCompany: {
+        fontSize: 10,
+        color: '#ea580c', // Orange-600
+        fontWeight: 'medium',
         marginBottom: 4,
     },
-    // Project Item
-    projItem: {
+    // Project
+    projectItem: {
         marginBottom: 12,
     },
-    projTitle: {
+    projectHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+    },
+    projectTitle: {
         fontSize: 11,
         fontWeight: 'bold',
-        color: '#1a202c',
+        color: '#1e293b',
     },
-    projTech: {
+    projectTech: {
         fontSize: 9,
-        color: '#718096',
+        color: '#64748b',
         fontStyle: 'italic',
-        marginBottom: 3,
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 20,
-        alignSelf: 'center',
-        objectFit: 'cover',
+        marginBottom: 4,
     }
 });
 
-// Helper to format date
 const formatDate = (raw: string | undefined) => {
     if (!raw) return "";
     const dateMatch = raw.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
@@ -135,15 +168,21 @@ const formatDate = (raw: string | undefined) => {
         const month = parseInt(dateMatch[2]);
         const year = parseInt(dateMatch[3]);
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const getSuffix = (d: number) => {
-            if (d > 3 && d < 21) return 'th';
-            switch (d % 10) {
-                case 1: return "st";
-                case 2: return "nd";
-                case 3: return "rd";
-                default: return "th";
-            }
-        };
+        return `${months[month - 1]} ${year}`; // Simpler date format for clean look
+    }
+    return raw;
+};
+
+// FULL DATE for DOB
+const formatDOB = (raw: string | undefined) => {
+    if (!raw) return "";
+    const dateMatch = raw.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+    if (dateMatch) {
+        const day = parseInt(dateMatch[1]);
+        const month = parseInt(dateMatch[2]);
+        const year = parseInt(dateMatch[3]);
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const getSuffix = (d: number) => { if (d > 3 && d < 21) return 'th'; switch (d % 10) { case 1: return "st"; case 2: return "nd"; case 3: return "rd"; default: return "th"; } };
         return `${day}${getSuffix(day)} ${months[month - 1]} ${year}`;
     }
     return raw;
@@ -155,93 +194,101 @@ interface ResumePDFProps {
         skills: Record<string, string[]>;
         experience: Experience[];
         projects: Project[];
+        education?: { degree: string; institution: string; year: string }[];
     };
 }
 
 const ResumePDF: React.FC<ResumePDFProps> = ({ data }) => (
     <Document>
         <Page size="A4" style={styles.page}>
-            {/* LEFT SIDEBAR */}
-            <View style={styles.sidebar}>
-                {/* Profile Image (if valid URL/Base64) */}
+            {/* HEADER (Full Width) */}
+            <View style={styles.header}>
                 {data.profile.image_url && data.profile.image_url.startsWith('data:') && (
                     <Image src={data.profile.image_url} style={styles.profileImage} />
                 )}
-
-                <View style={styles.sidebarSection}>
-                    <Text style={styles.sidebarTitle}>Contact</Text>
-                    <Text style={styles.sidebarText}>{data.profile.email}</Text>
-                    <Text style={styles.sidebarText}>{data.profile.phone}</Text>
-                    <Text style={styles.sidebarText}>{data.profile.location}</Text>
-                    {data.profile.github && (
-                        <Link src={data.profile.github} style={{ ...styles.sidebarText, textDecoration: 'none' }}>
-                            {data.profile.github.replace(/^https?:\/\//, '')}
-                        </Link>
-                    )}
+                <View style={styles.headerContent}>
+                    <Text style={styles.name}>{data.profile.name}</Text>
+                    <Text style={styles.title}>{data.profile.title}</Text>
+                    <View style={styles.contactRow}>
+                        <Text style={styles.contactItem}>{data.profile.email}</Text>
+                        <Text style={styles.contactItem}>{data.profile.phone}</Text>
+                        <Text style={styles.contactItem}>{data.profile.location}</Text>
+                        {data.profile.github && <Text style={styles.contactItem}>github.com/{data.profile.github.replace(/^https?:\/\//, '').replace('github.com/', '')}</Text>}
+                        {data.profile.linkedin && <Text style={styles.contactItem}>linkedin.com/in/{data.profile.linkedin.replace(/^https?:\/\//, '').replace('linkedin.com/in/', '').replace('www.', '')}</Text>}
+                    </View>
                 </View>
+            </View>
 
-                {/* Personal Details */}
-                <View style={styles.sidebarSection}>
-                    <Text style={styles.sidebarTitle}>Personal</Text>
-                    {data.profile.dob && <Text style={styles.sidebarText}>DOB: {formatDate(data.profile.dob)}</Text>}
-                    {/* PAN/Aadhaar usually private, maybe skip or include per preference. Including small if user wants. */}
-                    {data.profile.pan && <Text style={styles.sidebarText}>PAN: {data.profile.pan}</Text>}
-                    {/* Aadhaar might be too long/private for visual sidebar, keeping it minimal */}
-                </View>
-
-                {/* Skills in Sidebar */}
-                <View style={styles.sidebarSection}>
-                    <Text style={styles.sidebarTitle}>Skills</Text>
+            <View style={styles.columnsContainer}>
+                {/* LEFT COLUMN: Skills, Education, Personal */}
+                <View style={styles.leftColumn}>
+                    {/* SKILLS */}
+                    <Text style={{ ...styles.sectionTitle, marginTop: 0 }}>Technical Skills</Text>
                     {Object.entries(data.skills).map(([category, skills]) => (
-                        <View key={category} style={{ marginBottom: 10 }}>
-                            <Text style={{ ...styles.sidebarText, fontWeight: 'bold', color: '#fb923c' }}>{category}</Text>
-                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        <View key={category} style={styles.skillCategory}>
+                            <Text style={styles.skillTitle}>{category}</Text>
+                            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
                                 {skills.map((skill, idx) => (
                                     <Text key={idx} style={styles.skillBadge}>{skill}</Text>
                                 ))}
                             </View>
                         </View>
                     ))}
+
+                    {/* EDUCATION */}
+                    {data.education && (
+                        <>
+                            <Text style={styles.sectionTitle}>Education</Text>
+                            {data.education.map((edu, idx) => (
+                                <View key={idx} style={styles.educationItem}>
+                                    <Text style={{ fontWeight: 'bold', fontSize: 10 }}>{edu.degree}</Text>
+                                    <Text style={{ fontSize: 9, color: '#64748b' }}>{edu.institution}</Text>
+                                    <Text style={{ fontSize: 9, fontStyle: 'italic', color: '#94a3b8' }}>{edu.year}</Text>
+                                </View>
+                            ))}
+                        </>
+                    )}
+
+                    {/* PERSONAL */}
+                    <Text style={styles.sectionTitle}>Personal</Text>
+                    {data.profile.dob && <Text style={{ fontSize: 9, marginBottom: 2 }}>DOB: {formatDOB(data.profile.dob)}</Text>}
+                    {data.profile.pan && <Text style={{ fontSize: 9, marginBottom: 2 }}>PAN: {data.profile.pan}</Text>}
                 </View>
-            </View>
 
-            {/* MAIN CONTENT Area */}
-            <View style={styles.main}>
-                <Text style={styles.name}>{data.profile.name}</Text>
-                <Text style={styles.title}>{data.profile.title}</Text>
-
-                {/* Summary */}
-                <View style={{ marginBottom: 20 }}>
+                {/* RIGHT COLUMN: Experience, Projects */}
+                <View style={styles.rightColumn}>
+                    {/* SUMMARY */}
+                    <Text style={{ ...styles.sectionTitle, marginTop: 0 }}>Professional Summary</Text>
                     <Text style={styles.text}>{data.profile.summary}</Text>
-                </View>
 
-                {/* Experience */}
-                <Text style={styles.sectionTitle}>Experience</Text>
-                {data.experience.map((exp, index) => (
-                    <View key={index} style={styles.expItem}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                            <Text style={styles.expRole}>{exp.role}</Text>
-                            <Text style={styles.expDate}>{exp.duration}</Text>
+                    {/* EXPERIENCE */}
+                    <Text style={styles.sectionTitle}>Experience</Text>
+                    {data.experience.map((exp, index) => (
+                        <View key={index} style={styles.expItem} break={index > 0}>
+                            <View style={styles.expHeader}>
+                                <Text style={styles.expRole}>{exp.role}</Text>
+                                <Text style={styles.expDate}>{exp.duration}</Text>
+                            </View>
+                            <Text style={styles.expCompany}>{exp.company}</Text>
+                            <Text style={styles.text}>{exp.description}</Text>
                         </View>
-                        <Text style={styles.expCompany}>{exp.company}</Text>
-                        <Text style={styles.text}>{exp.description}</Text>
-                    </View>
-                ))}
+                    ))}
 
-                {/* Projects */}
-                <Text style={styles.sectionTitle}>Projects</Text>
-                {data.projects.map((proj, index) => (
-                    <View key={index} style={styles.projItem}>
-                        <Text style={styles.projTitle}>{proj.title}</Text>
-                        <Text style={styles.projTech}>{proj.technologies.join(', ')}</Text>
-                        <Text style={styles.text}>{proj.description}</Text>
-                        {proj.responsibilities && (
-                            <Text style={{ ...styles.text, fontSize: 9, color: '#718096', marginTop: 2 }}>
-                                • {proj.responsibilities}
-                            </Text>
-                        )}
-                    </View>
-                ))}
+                    {/* PROJECTS */}
+                    <Text style={styles.sectionTitle}>Projects</Text>
+                    {data.projects.map((proj, index) => (
+                        <View key={index} style={styles.projectItem} break={index > 0}>
+                            <View style={styles.projectHeader}>
+                                <Text style={styles.projectTitle}>{proj.title}</Text>
+                            </View>
+                            <Text style={styles.projectTech}>{proj.technologies.join(' • ')}</Text>
+                            <Text style={styles.text}>{proj.description}</Text>
+                            {proj.responsibilities && (
+                                <Text style={{ fontSize: 9, color: '#64748b', fontStyle: 'italic', marginTop: 2 }}>• {proj.responsibilities}</Text>
+                            )}
+                        </View>
+                    ))}
+                </View>
             </View>
         </Page>
     </Document>
