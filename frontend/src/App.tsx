@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Lock, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
-import { jsPDF } from 'jspdf'
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ResumePDF from './components/ResumePDF';
 import { ResumeData, Experience, Project, Education } from './types'
 import { EditableText } from './components/EditableText'
 
@@ -229,7 +230,7 @@ function App() {
         }
     };
 
-    const handleDownloadPDF = () => {
+    /* const handleDownloadPDF = () => {
         if (!data) return;
         const doc = new jsPDF();
 
@@ -457,7 +458,7 @@ function App() {
         }
 
         doc.save("Rosan profile.pdf");
-    };
+    }; */
 
     return (
         <div className="min-h-screen w-full flex flex-col bg-gray-50 text-gray-800 font-sans lg:h-screen lg:overflow-hidden overflow-auto">
@@ -637,14 +638,21 @@ function App() {
 
             {/* Fixed Action Buttons (Download & Lock) */}
             <div className="fixed bottom-4 right-4 z-40 flex items-end gap-3">
-                <button
-                    onClick={handleDownloadPDF}
-                    className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5"
-                    title="Download Profile as PDF"
-                >
-                    <Download size={20} />
-                    <span className="font-semibold text-sm">Download</span>
-                </button>
+                {data && (
+                    <PDFDownloadLink
+                        document={<ResumePDF data={data} />}
+                        fileName="Rosan_Profile.pdf"
+                        className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5 no-underline"
+                        title="Download Profile as PDF"
+                    >
+                        {({ loading }) => (
+                            <>
+                                <Download size={20} />
+                                <span className="font-semibold text-sm">{loading ? 'Preparing...' : 'Download'}</span>
+                            </>
+                        )}
+                    </PDFDownloadLink>
+                )}
 
                 {!isAdmin && (
                     <button
