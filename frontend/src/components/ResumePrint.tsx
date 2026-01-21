@@ -61,7 +61,7 @@ export const ResumePrint = forwardRef<HTMLDivElement, ResumePrintProps>(({ data 
                             {data.profile.linkedin && (
                                 <div className="flex items-center gap-2">
                                     <Linkedin size={14} className="text-orange-400 shrink-0" />
-                                    <span className="truncate">{data.profile.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '')}</span>
+                                    <span className="truncate">{data.profile.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//i, '').replace(/\/$/, '')}</span>
                                 </div>
                             )}
                             {data.profile.github && (

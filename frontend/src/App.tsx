@@ -309,33 +309,35 @@ function App() {
             </header>
 
             <main className="flex-1 overflow-y-auto p-4 pb-20 custom-scrollbar">
-                <article className="max-w-7xl mx-auto flex flex-col gap-6">
-                    <section className="glass-card p-5">
-                        <h3 className="text-lg font-bold text-slate-700 border-l-4 border-blue-500 pl-2 mb-3">Professional Summary</h3>
-                        <EditableText value={data.profile.summary} onChange={(v) => updateProfile('summary', v)} isEditing={isEditing} multiline className="text-gray-600 leading-relaxed" />
+                <article className="max-w-6xl mx-auto flex flex-col gap-6">
+                    {/* Summary */}
+                    <section className="glass-card p-6">
+                        <h3 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3 mb-4">Professional Summary</h3>
+                        <EditableText value={data.profile.summary} onChange={(v) => updateProfile('summary', v)} isEditing={isEditing} multiline className="text-slate-600 leading-relaxed text-lg" />
                     </section>
 
-                    <section className="glass-card p-5">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-indigo-500 pl-2">Technical Skills</h3>
-                            {isEditing && <button onClick={addSkillCategory} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add Category</button>}
+                    {/* Skills */}
+                    <section className="glass-card p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3">Technical Skills</h3>
+                            {isEditing && <button onClick={addSkillCategory} className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1"><Plus size={16} /> Add Category</button>}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {Object.entries(data.skills).map(([category, skills], idx) => (
-                                <div key={idx} className="bg-white/50 rounded-xl p-4 border border-indigo-50/50">
+                                <div key={idx} className="bg-slate-50 rounded-xl p-5 border border-slate-200 shadow-sm">
                                     <div className="flex justify-between items-center mb-3">
                                         {isEditing ? (
-                                            <div className="flex items-center gap-2">
-                                                <input className="font-bold text-indigo-700 bg-transparent border-b border-indigo-200 outline-none w-full" defaultValue={category} onBlur={(e) => renameSkillCategory(category, e.target.value)} />
-                                                <button onClick={() => removeSkillCategory(category)} className="text-red-400 hover:text-red-600"><X size={14} /></button>
+                                            <div className="flex items-center gap-2 w-full">
+                                                <input className="font-bold text-slate-700 bg-transparent border-b border-slate-300 outline-none w-full" defaultValue={category} onBlur={(e) => renameSkillCategory(category, e.target.value)} />
+                                                <button onClick={() => removeSkillCategory(category)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
                                             </div>
                                         ) : (
-                                            <h4 className="font-bold text-indigo-700">{category}</h4>
+                                            <h4 className="font-bold text-slate-700">{category}</h4>
                                         )}
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {skills.map((skill, i) => (
-                                            <span key={i} className="bg-white border border-indigo-100 text-slate-600 px-2 py-1 rounded text-xs shadow-sm flex items-center gap-1 group">
+                                            <span key={i} className="bg-white border border-slate-200 text-slate-600 px-3 py-1 rounded-lg text-sm font-medium shadow-sm flex items-center gap-1 group">
                                                 {isEditing ? (
                                                     <>
                                                         <input className="bg-transparent w-full min-w-[30px] outline-none" value={skill} onChange={(e) => updateSkills(category, i, e.target.value)} />
@@ -344,7 +346,7 @@ function App() {
                                                             newSkills.splice(i, 1);
                                                             const newData = { ...data.skills, [category]: newSkills };
                                                             setData({ ...data, skills: newData });
-                                                        }} className="hidden group-hover:block text-red-500"><X size={10} /></button>
+                                                        }} className="hidden group-hover:block text-red-500"><X size={12} /></button>
                                                     </>
                                                 ) : skill}
                                             </span>
@@ -352,53 +354,35 @@ function App() {
                                         {isEditing && <button onClick={() => {
                                             const newSkills = [...skills, "New Skill"];
                                             setData({ ...data, skills: { ...data.skills, [category]: newSkills } });
-                                        }} className="text-indigo-400 hover:text-indigo-600"><Plus size={14} /></button>}
+                                        }} className="text-blue-400 hover:text-blue-600"><Plus size={16} /></button>}
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </section>
-                    {/* Experience */}
-                    <section className="glass-card p-5">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-purple-500 pl-2">Professional Experience</h3>
-                            {isEditing && <button onClick={addExperience} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
-                        </div>
-                        <div className="flex flex-col gap-6 relative">
-                            {/* Line connecting items */}
-                            <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-200 hidden md:block"></div>
 
+                    {/* Experience */}
+                    <section className="glass-card p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3">Professional Experience</h3>
+                            {isEditing && <button onClick={addExperience} className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1"><Plus size={16} /> Add Role</button>}
+                        </div>
+                        <div className="flex flex-col gap-6">
                             {data.experience.map((exp, index) => (
-                                <div key={index} className="relative pl-0 md:pl-12 group">
-                                    {/* Timeline Dot */}
-                                    <div className="hidden md:flex absolute left-0 top-1.5 w-10 h-10 bg-white border-2 border-purple-100 rounded-full items-center justify-center shrink-0 z-10 group-hover:border-purple-300 transition-colors">
-                                        <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                <div key={index} className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow relative group">
+                                    <div className="flex flex-col md:flex-row justify-between items-start gap-2 mb-2">
+                                        <div>
+                                            <EditableText value={exp.role} onChange={(v) => updateExperience(index, 'role', v)} isEditing={isEditing} className="font-bold text-xl text-slate-800" />
+                                            <EditableText value={exp.company} onChange={(v) => updateExperience(index, 'company', v)} isEditing={isEditing} className="text-blue-600 font-semibold text-lg" />
+                                        </div>
+                                        <div className="text-right">
+                                            <EditableText value={exp.duration} onChange={(v) => updateExperience(index, 'duration', v)} isEditing={isEditing} className="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full inline-block" />
+                                            {isEditing && <button onClick={() => removeExperience(index)} className="block mt-2 ml-auto text-red-400 hover:text-red-600"><Trash2 size={16} /></button>}
+                                        </div>
                                     </div>
 
-                                    <div className={`glass-card p-4 transition-all hover:shadow-md ${expandedExperience === index ? 'ring-2 ring-purple-100' : ''}`}>
-                                        <div className="flex justify-between items-start mb-2">
-                                            <div className="flex-1">
-                                                <EditableText value={exp.role} onChange={(v) => updateExperience(index, 'role', v)} isEditing={isEditing} className="font-bold text-lg text-slate-800" />
-                                                <EditableText value={exp.company} onChange={(v) => updateExperience(index, 'company', v)} isEditing={isEditing} className="text-purple-600 font-medium" />
-                                            </div>
-                                            {isEditing && <button onClick={() => removeExperience(index)} className="text-red-400 hover:text-red-600 p-1"><Trash2 size={16} /></button>}
-                                        </div>
-                                        <EditableText value={exp.duration} onChange={(v) => updateExperience(index, 'duration', v)} isEditing={isEditing} className="text-sm text-slate-500 mb-3 block" />
-
-                                        {/* Description with Expand/Collapse for better UI */}
-                                        <div className="relative">
-                                            <div className={`text-slate-600 leading-relaxed ${expandedExperience === index ? '' : 'line-clamp-3'}`}>
-                                                <EditableText value={exp.description} onChange={(v) => updateExperience(index, 'description', v)} isEditing={isEditing} multiline />
-                                            </div>
-                                            {(exp.description.length > 150 || isEditing) && (
-                                                <button
-                                                    onClick={() => setExpandedExperience(expandedExperience === index ? null : index)}
-                                                    className="text-xs text-purple-500 hover:text-purple-700 mt-1 font-medium flex items-center gap-1"
-                                                >
-                                                    {expandedExperience === index ? 'Show Less' : 'Show More'} <ChevronRight size={12} className={`transition-transform ${expandedExperience === index ? 'rotate-90' : ''}`} />
-                                                </button>
-                                            )}
-                                        </div>
+                                    <div className="mt-4 text-slate-600 leading-relaxed whitespace-pre-wrap">
+                                        <EditableText value={exp.description} onChange={(v) => updateExperience(index, 'description', v)} isEditing={isEditing} multiline />
                                     </div>
                                 </div>
                             ))}
@@ -406,62 +390,50 @@ function App() {
                     </section>
 
                     {/* Projects */}
-                    <section className="glass-card p-5">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-orange-500 pl-2">Featured Projects</h3>
-                            {isEditing && <button onClick={addProject} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
+                    <section className="glass-card p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3">Featured Projects</h3>
+                            {isEditing && <button onClick={addProject} className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1"><Plus size={16} /> Add Project</button>}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 gap-6">
                             {data.projects.map((proj, index) => (
-                                <div key={index} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-5 border border-slate-100 flex flex-col h-full">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <EditableText value={proj.title} onChange={(v) => updateProject(index, 'title', v)} isEditing={isEditing} className="font-bold text-lg text-slate-800" />
+                                <div key={index} className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <EditableText value={proj.title} onChange={(v) => updateProject(index, 'title', v)} isEditing={isEditing} className="font-bold text-xl text-slate-800" />
                                         {isEditing && <button onClick={() => removeProject(index)} className="text-red-400 hover:text-red-600"><Trash2 size={16} /></button>}
                                     </div>
 
-                                    <div className="mb-3">
+                                    <div className="mb-4">
                                         {isEditing ? (
                                             <input
-                                                className="w-full text-xs border-b border-orange-200 outline-none py-1 text-slate-500"
+                                                className="w-full text-sm border-b border-blue-200 outline-none py-1 text-slate-600"
                                                 value={proj.technologies.join(', ')}
                                                 onChange={(e) => updateProject(index, 'technologies', e.target.value)}
                                                 placeholder="Tech stack (comma separated)"
                                             />
                                         ) : (
-                                            <div className="flex flex-wrap gap-1.5">
+                                            <div className="flex flex-wrap gap-2">
                                                 {proj.technologies.map((tech, t) => (
-                                                    <span key={t} className="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full font-medium">{tech}</span>
+                                                    <span key={t} className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium border border-blue-100">{tech}</span>
                                                 ))}
                                             </div>
                                         )}
                                     </div>
 
-                                    <div className="flex-1 text-sm text-slate-600 mb-4">
-                                        <EditableText value={proj.description} onChange={(v) => updateProject(index, 'description', v)} isEditing={isEditing} multiline className="line-clamp-4" />
+                                    <div className="text-slate-600 mb-4 leading-relaxed">
+                                        <EditableText value={proj.description} onChange={(v) => updateProject(index, 'description', v)} isEditing={isEditing} multiline />
                                     </div>
 
-                                    {/* Project Responsibilities (Hidden by default, expandable) */}
-                                    <div className="mt-auto border-t border-slate-50 pt-3">
-                                        <button
-                                            onClick={() => setExpandedProject(expandedProject === index ? null : index)}
-                                            className="text-xs text-slate-400 hover:text-orange-500 flex items-center gap-1 w-full justify-center transition-colors"
-                                        >
-                                            {expandedProject === index ? 'Hide Details' : 'View Responsibilities'} <ChevronRight size={12} className={`transition-transform ${expandedProject === index ? 'rotate-90' : ''}`} />
-                                        </button>
-                                        <AnimatePresence>
-                                            {expandedProject === index && (
-                                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                                                    <div className="pt-2 text-xs text-slate-500 italic">
-                                                        <EditableText
-                                                            value={proj.responsibilities || "Add responsibilities..."}
-                                                            onChange={(v) => updateProject(index, 'responsibilities', v)}
-                                                            isEditing={isEditing}
-                                                            multiline
-                                                        />
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                    {/* Responsibilities */}
+                                    <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                        <h5 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Key Responsibilities</h5>
+                                        <EditableText
+                                            value={proj.responsibilities || "Add responsibilities..."}
+                                            onChange={(v) => updateProject(index, 'responsibilities', v)}
+                                            isEditing={isEditing}
+                                            multiline
+                                            className="text-sm text-slate-600 italic"
+                                        />
                                     </div>
                                 </div>
                             ))}
@@ -469,55 +441,53 @@ function App() {
                     </section>
 
                     {/* Education */}
-                    <section className="glass-card p-5">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-bold text-slate-700 border-l-4 border-green-500 pl-2">Education</h3>
-                            {isEditing && <button onClick={addEducation} className="btn-secondary text-xs py-1 px-2"><Plus size={12} /> Add</button>}
+                    <section className="glass-card p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3">Education</h3>
+                            {isEditing && <button onClick={addEducation} className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1"><Plus size={16} /> Add Education</button>}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {data.education && data.education.map((edu, index) => (
-                                <div key={index} className="bg-green-50/50 p-4 rounded-lg border border-green-100 relative group">
-                                    {isEditing && <button onClick={() => removeEducation(index)} className="absolute top-2 right-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>}
-                                    <EditableText value={edu.degree} onChange={(v) => updateEducation(index, 'degree', v)} isEditing={isEditing} className="font-bold text-slate-800 block mb-1" />
-                                    <EditableText value={edu.institution} onChange={(v) => updateEducation(index, 'institution', v)} isEditing={isEditing} className="text-sm text-green-700 block mb-1" />
-                                    <EditableText value={edu.year} onChange={(v) => updateEducation(index, 'year', v)} isEditing={isEditing} className="text-xs text-slate-500" />
+                                <div key={index} className="bg-white p-5 rounded-xl border border-slate-200 relative group shadow-sm">
+                                    {isEditing && <button onClick={() => removeEducation(index)} className="absolute top-3 right-3 text-red-400 hover:text-red-600"><Trash2 size={16} /></button>}
+                                    <EditableText value={edu.degree} onChange={(v) => updateEducation(index, 'degree', v)} isEditing={isEditing} className="font-bold text-lg text-slate-800 block mb-1" />
+                                    <EditableText value={edu.institution} onChange={(v) => updateEducation(index, 'institution', v)} isEditing={isEditing} className="text-blue-600 font-medium block mb-1" />
+                                    <EditableText value={edu.year} onChange={(v) => updateEducation(index, 'year', v)} isEditing={isEditing} className="text-sm text-slate-500 bg-slate-100 px-2 py-0.5 rounded inline-block" />
                                 </div>
                             ))}
                         </div>
                     </section>
 
-                    {/* Personal & Documents (View Only / Admin) */}
-                    <section className="glass-card p-5">
-                        <h3 className="text-lg font-bold text-slate-700 border-l-4 border-gray-500 pl-2 mb-4">Personal Details & Documents</h3>
+                    {/* Personal Details (Admin View) */}
+                    <section className="glass-card p-6 opacity-80 hover:opacity-100 transition-opacity">
+                        <h3 className="text-lg font-bold text-slate-600 border-l-4 border-gray-400 pl-3 mb-4">Personal Details & Documents</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
-                                    <span className="text-sm font-medium text-slate-600">Date of Birth</span>
-                                    <EditableText value={data.profile.dob || ''} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold" />
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                                    <span className="text-sm font-medium text-slate-500">Date of Birth</span>
+                                    <EditableText value={data.profile.dob || ''} onChange={(v) => updateProfile('dob', v)} isEditing={isEditing} className="text-slate-800 font-bold" />
                                 </div>
-                                <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
-                                    <span className="text-sm font-medium text-slate-600">Location</span>
-                                    <EditableText value={data.profile.location} onChange={(v) => updateProfile('location', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold" />
+                                <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                                    <span className="text-sm font-medium text-slate-500">Location</span>
+                                    <EditableText value={data.profile.location} onChange={(v) => updateProfile('location', v)} isEditing={isEditing} className="text-slate-800 font-bold" />
                                 </div>
                             </div>
-                            <div className="space-y-3">
-                                {/* PAN & Aadhaar - Only visible if editing or value exists */}
+                            <div className="space-y-4">
                                 {(isEditing || data.profile.pan) && (
-                                    <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
-                                        <span className="text-sm font-medium text-slate-600">PAN Number</span>
-                                        <EditableText value={data.profile.pan || ''} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold font-mono" />
+                                    <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                                        <span className="text-sm font-medium text-slate-500">PAN Number</span>
+                                        <EditableText value={data.profile.pan || ''} onChange={(v) => updateProfile('pan', v)} isEditing={isEditing} className="text-slate-800 font-bold font-mono" />
                                     </div>
                                 )}
                                 {(isEditing || (data.profile.aadhaar || '')) && (
-                                    <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-100">
-                                        <span className="text-sm font-medium text-slate-600">Aadhaar</span>
-                                        <EditableText value={data.profile.aadhaar || ''} onChange={(v) => updateProfile('aadhaar', v)} isEditing={isEditing} className="text-sm text-slate-800 font-bold font-mono" />
+                                    <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                                        <span className="text-sm font-medium text-slate-500">Aadhaar</span>
+                                        <EditableText value={data.profile.aadhaar || ''} onChange={(v) => updateProfile('aadhaar', v)} isEditing={isEditing} className="text-slate-800 font-bold font-mono" />
                                     </div>
                                 )}
                             </div>
                         </div>
                     </section>
-
                 </article>
             </main>
         </div>
