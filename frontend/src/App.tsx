@@ -641,14 +641,14 @@ function App() {
                 {data && (
                     <PDFDownloadLink
                         document={<ResumePDF data={data} />}
-                        fileName="Rosan_Profile.pdf"
-                        className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5 no-underline"
-                        title="Download Profile as PDF"
+                        fileName="Rosan_Profile_New.pdf"
+                        className="p-3 rounded-full bg-orange-600 text-white shadow-lg hover:bg-orange-700 hover:shadow-xl transition-all border border-orange-500 flex items-center gap-2 pr-5 no-underline"
+                        title="Download Professional Resume in PDF"
                     >
                         {({ loading }) => (
                             <>
                                 <Download size={20} />
-                                <span className="font-semibold text-sm">{loading ? 'Preparing...' : 'Download'}</span>
+                                <span className="font-semibold text-sm">{loading ? 'Preparing...' : 'Download CV'}</span>
                             </>
                         )}
                     </PDFDownloadLink>
