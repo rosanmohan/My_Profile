@@ -17,7 +17,10 @@ const Register = () => {
             login(res.data.access_token);
             navigate('/');
         } catch (err: any) {
-            setError(err.response?.data?.detail || 'Registration failed');
+            console.error(err);
+            const msg = err.response?.data?.detail || err.message || 'Registration failed';
+            setError(msg);
+            alert(msg); // Force alert to see the error immediately
         }
     };
 
