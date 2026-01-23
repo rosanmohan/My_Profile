@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react' // Force rebuild
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Lock, Loader2 } from 'lucide-react'
