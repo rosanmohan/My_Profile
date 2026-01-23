@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Share2, Copy, Check } from 'lucide-react'
+import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
-import { useAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-function Dashboard() {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
+function PublicProfile() {
+    const { publicId } = useParams();
     const [data, setData] = useState<ResumeData | null>(null);
-    const [isEditing, setIsEditing] = useState(false);
+    const isEditing = false; // Always false for public view
     const [loading, setLoading] = useState(true);
     const [serverWakeup, setServerWakeup] = useState(false);
 
@@ -21,66 +19,20 @@ function Dashboard() {
     const [expandedProject, setExpandedProject] = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-    // Lock/Unlock State
-    const [unlockPassword, setUnlockPassword] = useState('');
-    const [unlockError, setUnlockError] = useState('');
-
-    // Share Link State
-    const [showShareModal, setShowShareModal] = useState(false);
-    const [publicUrl, setPublicUrl] = useState('');
-    const [copied, setCopied] = useState(false);
-
-    const handleUnlock = async () => {
-        setLoading(true);
-        try {
-            await api.post('/api/verify-password', { password: unlockPassword });
-
-            // If successful
-            setIsEditing(true);
-            setExpandedExperience(null); // Close modal
-            setUnlockPassword('');
-            setUnlockError('');
-        } catch (err) {
-            setUnlockError("Invalid Password");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleGenerateLink = async () => {
-        try {
-            const res = await api.post('/api/resume/public-link');
-            const url = `${window.location.origin}/public/${res.data.public_id}`;
-            setPublicUrl(url);
-            setShowShareModal(true);
-        } catch (err) {
-            alert("Failed to generate link");
-        }
-    };
-
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(publicUrl);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [publicId]);
 
     const fetchData = async () => {
+        if (!publicId) return;
         // Show "Waking up..." message if loading takes > 3s
         const timer = setTimeout(() => setServerWakeup(true), 3000);
         try {
-            const res = await api.get('/api/resume');
-            // If empty data, we might want to handle it (but backend creates default)
+            const res = await api.get(`/api/public-resume/${publicId}`);
             setData(res.data);
         } catch (err: any) {
             console.error(err);
-            if (err.response?.status === 401) {
-                logout();
-                navigate('/login');
-            }
+            // Handle error - maybe redirect to 404
         } finally {
             clearTimeout(timer);
             setLoading(false);
@@ -88,21 +40,9 @@ function Dashboard() {
         }
     };
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
 
-    const handleSave = async () => {
-        if (!data) return;
-        try {
-            await api.post('/api/resume', { data });
-            setIsEditing(false);
-        } catch (err) {
-            console.error(err);
-            alert('Failed to save');
-        }
-    };
+
+
 
     if (loading) return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-50 text-gray-600 gap-4">
@@ -606,99 +546,15 @@ function Dashboard() {
             {/* Action Buttons */}
             <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
                 <button
-                    onClick={() => isEditing ? handleSave() : setExpandedExperience(-1)} // -1 is hack trigger for Unlock Modal
-                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-800 hover:bg-black'}`}
-                >
-                    {isEditing ? <Save size={24} /> : <Lock size={24} />}
-                    <span className="font-semibold hidden md:inline">{isEditing ? 'Save' : 'Unlock to Edit'}</span>
-                </button>
-                <button
                     onClick={handleDownloadPDF}
                     className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5"
                     title="Download PDF"
                 >
                     <Download size={20} />
                 </button>
-                <button
-                    onClick={handleGenerateLink}
-                    className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-purple-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5"
-                    title="Share Profile"
-                >
-                    <Share2 size={20} />
-                </button>
-                <button
-                    onClick={handleLogout}
-                    className="p-3 rounded-full bg-red-600/80 hover:bg-red-700 text-white shadow-lg self-end"
-                    title="Logout"
-                >
-                    <Trash2 size={20} />
-                </button>
             </div>
 
-            {/* Unlock Modal */}
-            {expandedExperience === -1 && (
-                <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl flex flex-col gap-4">
-                        <h3 className="text-xl font-bold text-gray-800 text-center">Unlock Edit Mode</h3>
-                        <p className="text-gray-500 text-center text-sm">Please enter your password to make changes.</p>
 
-                        <input
-                            type="password"
-                            className="input-field w-full p-3 border rounded-lg"
-                            placeholder="Password"
-                            value={unlockPassword}
-                            onChange={e => setUnlockPassword(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && handleUnlock()}
-                        />
-
-                        {unlockError && <p className="text-red-500 text-sm text-center">{unlockError}</p>}
-
-                        <div className="flex gap-3 mt-2">
-                            <button
-                                onClick={() => { setExpandedExperience(null); setUnlockPassword(''); setUnlockError(''); }}
-                                className="flex-1 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleUnlock}
-                                className="flex-1 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-medium shadow-md flex justify-center items-center gap-2"
-                                disabled={loading}
-                            >
-                                {loading ? <Loader2 className="animate-spin" size={18} /> : 'Unlock'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Share Modal */}
-            {showShareModal && (
-                <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl flex flex-col gap-4 relative">
-                        <button
-                            onClick={() => setShowShareModal(false)}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors"
-                        >
-                            <X size={24} />
-                        </button>
-                        <h3 className="text-xl font-bold text-gray-800 text-center">Share Your Profile</h3>
-                        <p className="text-gray-500 text-center text-sm">Anyone with this link can view your resume.</p>
-
-                        <div className="flex items-center gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200">
-                            <input
-                                type="text"
-                                readOnly
-                                value={publicUrl}
-                                className="bg-transparent flex-1 text-sm text-gray-600 outline-none w-full"
-                            />
-                            <button onClick={copyToClipboard} className="text-blue-600 hover:text-blue-800">
-                                {copied ? <Check size={18} /> : <Copy size={18} />}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
             {/* HEADER - Fixed Top */}
             <header className="px-6 py-4 glass-card mx-4 mt-4 mb-2 flex flex-col md:flex-row justify-between items-center shadow-sm shrink-0">
@@ -1042,4 +898,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default PublicProfile

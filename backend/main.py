@@ -162,6 +162,30 @@ async def upload_file(file: UploadFile = File(...), current_user: models.User = 
     file_url = f"{base_url}/uploads/{unique_filename}"
     return {"url": file_url}
 
+@app.post("/api/resume/public-link")
+def generate_public_link(current_user: models.User = Depends(auth.get_current_user), db: Session = Depends(auth.get_db)):
+    resume = db.query(models.Resume).filter(models.Resume.user_id == current_user.id).first()
+    if not resume:
+        # Create if missing (edge case) or error
+        # Assuming resume exists if user is logged in usually, but to be safe:
+        resume = models.Resume(user_id=current_user.id, data=get_default_resume_data())
+        db.add(resume)
+        db.commit() # Commit to get ID
+        
+    if not resume.public_id:
+        resume.public_id = str(uuid.uuid4())
+        db.commit()
+    
+    return {"public_id": resume.public_id}
+
+@app.get("/api/public-resume/{public_id}")
+def get_public_resume(public_id: str, db: Session = Depends(auth.get_db)):
+    resume = db.query(models.Resume).filter(models.Resume.public_id == public_id).first()
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found")
+    
+    return json.loads(resume.data)
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
