@@ -18,7 +18,7 @@ const Login = () => {
             formData.append('password', password);
             const res = await api.post('/token', formData);
             login(res.data.access_token);
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
             setError('Invalid credentials');
         }
