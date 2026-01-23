@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
+import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
@@ -20,6 +20,33 @@ function Dashboard() {
     const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
     const [expandedProject, setExpandedProject] = useState<number | null>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+    // Lock/Unlock State
+    const [unlockPassword, setUnlockPassword] = useState('');
+    const [unlockError, setUnlockError] = useState('');
+
+    const handleUnlock = async () => {
+        if (!data?.profile?.email) return;
+        setLoading(true);
+        try {
+            // Verify password by attempting to get a token
+            const formData = new FormData();
+            formData.append('username', data.profile.email); // Assume email matches profile
+            formData.append('password', unlockPassword);
+
+            await api.post('/token', formData);
+
+            // If successful
+            setIsEditing(true);
+            setExpandedExperience(null); // Close modal
+            setUnlockPassword('');
+            setUnlockError('');
+        } catch (err) {
+            setUnlockError("Invalid Password");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchData();
@@ -563,11 +590,11 @@ function Dashboard() {
             {/* Action Buttons */}
             <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
                 <button
-                    onClick={isEditing ? handleSave : () => setIsEditing(true)}
-                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    onClick={() => isEditing ? handleSave() : setExpandedExperience(-1)} // -1 is hack trigger for Unlock Modal
+                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-800 hover:bg-black'}`}
                 >
-                    {isEditing ? <Save size={24} /> : <Edit2 size={24} />}
-                    <span className="font-semibold hidden md:inline">{isEditing ? 'Save' : 'Edit'}</span>
+                    {isEditing ? <Save size={24} /> : <Lock size={24} />}
+                    <span className="font-semibold hidden md:inline">{isEditing ? 'Save' : 'Unlock to Edit'}</span>
                 </button>
                 <button
                     onClick={handleDownloadPDF}
@@ -584,6 +611,43 @@ function Dashboard() {
                     <Trash2 size={20} />
                 </button>
             </div>
+
+            {/* Unlock Modal */}
+            {expandedExperience === -1 && (
+                <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl flex flex-col gap-4">
+                        <h3 className="text-xl font-bold text-gray-800 text-center">Unlock Edit Mode</h3>
+                        <p className="text-gray-500 text-center text-sm">Please enter your password to make changes.</p>
+
+                        <input
+                            type="password"
+                            className="input-field w-full p-3 border rounded-lg"
+                            placeholder="Password"
+                            value={unlockPassword}
+                            onChange={e => setUnlockPassword(e.target.value)}
+                            onKeyDown={e => e.key === 'Enter' && handleUnlock()}
+                        />
+
+                        {unlockError && <p className="text-red-500 text-sm text-center">{unlockError}</p>}
+
+                        <div className="flex gap-3 mt-2">
+                            <button
+                                onClick={() => { setExpandedExperience(null); setUnlockPassword(''); setUnlockError(''); }}
+                                className="flex-1 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleUnlock}
+                                className="flex-1 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-medium shadow-md flex justify-center items-center gap-2"
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="animate-spin" size={18} /> : 'Unlock'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* HEADER - Fixed Top */}
             <header className="px-6 py-4 glass-card mx-4 mt-4 mb-2 flex flex-col md:flex-row justify-between items-center shadow-sm shrink-0">
