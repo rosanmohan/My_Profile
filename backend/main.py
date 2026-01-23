@@ -10,11 +10,6 @@ import uuid
 import cloudinary
 import cloudinary.uploader
 from typing import Dict, Any
-from starlette.middleware.sessions import SessionMiddleware
-from starlette.requests import Request
-from fastapi.responses import RedirectResponse
-from authlib.integrations.starlette_client import OAuth
-import secrets
 from dotenv import load_dotenv
 
 load_dotenv() # Load environment variables
@@ -32,32 +27,11 @@ cloudinary.config(
   secure = True
 )
 
-# --- OAuth Config ---
-GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-# Secret key for session middleware (required for OAuth state)
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here")
-
-oauth = OAuth()
-if GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET:
-    oauth.register(
-        name='google',
-        client_id=GOOGLE_CLIENT_ID,
-        client_secret=GOOGLE_CLIENT_SECRET,
-        server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-        client_kwargs={
-            'scope': 'openid email profile'
-        }
-    )
-
 
 # Create Database Tables
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
-
-# Add Session Middleware for OAuth
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 # Create uploads directory
 UPLOAD_DIR = "uploads"
@@ -116,58 +90,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token = auth.create_access_token(data={"sub": user.email})
-    access_token = auth.create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
-
-@app.get("/auth/google")
-async def login_google(request: Request):
-    if not os.getenv("GOOGLE_CLIENT_ID"):
-        raise HTTPException(status_code=500, detail="Google Login not configured")
-    
-    # Redirect URI must match what's in Google Console
-    redirect_uri = request.url_for('auth_google_callback')
-    return await oauth.google.authorize_redirect(request, redirect_uri)
-
-@app.get("/auth/google/callback")
-async def auth_google_callback(request: Request, db: Session = Depends(auth.get_db)):
-    try:
-        token = await oauth.google.authorize_access_token(request)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"OAuth Error: {str(e)}")
-        
-    user_data = token.get('userinfo')
-    if not user_data:
-        user_data = await oauth.google.userinfo(token=token)
-        
-    email = user_data.get('email')
-    if not email:
-         raise HTTPException(status_code=400, detail="Google account has no email")
-
-    # Check database
-    user = db.query(models.User).filter(models.User.email == email).first()
-    if not user:
-        # Create user with random password
-        random_password = secrets.token_urlsafe(16)
-        hashed_password = auth.get_password_hash(random_password)
-        new_user = models.User(email=email, hashed_password=hashed_password)
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
-        
-        # Init resume
-        default_data = get_default_resume_data()
-        new_resume = models.Resume(user_id=new_user.id, data=default_data)
-        db.add(new_resume)
-        db.commit()
-        
-        user = new_user
-        
-    access_token = auth.create_access_token(data={"sub": user.email})
-    
-    # Redirect to frontend
-    # Use environment variable for frontend URL in production
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-    return RedirectResponse(url=f"{frontend_url}/login/callback?token={access_token}")
 
 # --- Resume Routes ---
 
