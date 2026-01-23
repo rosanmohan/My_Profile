@@ -26,15 +26,9 @@ function Dashboard() {
     const [unlockError, setUnlockError] = useState('');
 
     const handleUnlock = async () => {
-        if (!data?.profile?.email) return;
         setLoading(true);
         try {
-            // Verify password by attempting to get a token
-            const formData = new FormData();
-            formData.append('username', data.profile.email); // Assume email matches profile
-            formData.append('password', unlockPassword);
-
-            await api.post('/token', formData);
+            await api.post('/api/verify-password', { password: unlockPassword });
 
             // If successful
             setIsEditing(true);
