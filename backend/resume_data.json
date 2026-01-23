@@ -9,20 +9,21 @@
     "location": "New York, USA",
     "github": "https://github.com/johndoe",
     "pan": "ABCDE1234F",
+    "aadhaar": "1234 5678 9012",
     "pan_url": "",
     "avatar_url": ""
   },
   "experience": [
     {
       "id": 1,
-      "title": "Senior Software Engineer",
+      "role": "Senior Software Engineer",
       "company": "Tech Solutions Inc.",
       "duration": "2020 - Present",
       "description": "Led the development of a cloud-based CRM system. Mentored junior developers and implemented CI/CD pipelines."
     },
     {
       "id": 2,
-      "title": "Software Developer",
+      "role": "Software Developer",
       "company": "DataCorp",
       "duration": "2017 - 2020",
       "description": "Developed and maintained internal tools using Python and Django. Optimized database queries for better performance."
@@ -33,12 +34,23 @@
       "id": 1,
       "title": "E-commerce Platform",
       "description": "A full-featured e-commerce site built with React and FastAPI.",
+      "technologies": [
+        "React",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "responsibilities": "Designed database schema, implemented auth system, built frontend UI.",
       "link": "https://example.com/ecommerce"
     },
     {
       "id": 2,
       "title": "Task Management App",
       "description": "A productivity app for managing personal tasks and projects.",
+      "technologies": [
+        "Vue",
+        "Firebase"
+      ],
+      "responsibilities": "Full stack development, real-time sync implementation.",
       "link": "https://example.com/tasks"
     }
   ],
@@ -50,13 +62,27 @@
       "year": "2013 - 2017"
     }
   ],
-  "skills": [
-    "Python",
-    "JavaScript",
-    "React",
-    "FastAPI",
-    "PostgreSQL",
-    "Docker",
-    "Git"
-  ]
+  "skills": {
+    "Languages": [
+      "Python",
+      "JavaScript",
+      "TypeScript"
+    ],
+    "Frontend": [
+      "React",
+      "HTML5",
+      "CSS3",
+      "TailwindCSS"
+    ],
+    "Backend": [
+      "FastAPI",
+      "Node.js",
+      "Django"
+    ],
+    "Tools": [
+      "Docker",
+      "Git",
+      "PostgreSQL"
+    ]
+  }
 }
