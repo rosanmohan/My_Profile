@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye } from 'lucide-react'
+import { Edit2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Lock, Loader2 } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
@@ -15,6 +15,7 @@ function Dashboard() {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [serverWakeup, setServerWakeup] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
 
     // State for selected item for Modal view
     const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
@@ -52,12 +53,15 @@ function Dashboard() {
 
     const handleSave = async () => {
         if (!data) return;
+        setIsSaving(true);
         try {
             await api.post('/api/resume', { data });
             setIsEditing(false);
         } catch (err) {
             console.error(err);
             alert('Failed to save');
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -564,10 +568,19 @@ function Dashboard() {
             <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
                 <button
                     onClick={isEditing ? handleSave : () => setIsEditing(true)}
-                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    disabled={isSaving}
+                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} ${isSaving ? 'opacity-70 cursor-wait' : ''}`}
                 >
-                    {isEditing ? <Save size={24} /> : <Edit2 size={24} />}
-                    <span className="font-semibold hidden md:inline">{isEditing ? 'Save' : 'Edit'}</span>
+                    {isSaving ? (
+                        <Loader2 size={24} className="animate-spin" />
+                    ) : isEditing ? (
+                        <Save size={24} />
+                    ) : (
+                        <Lock size={24} />
+                    )}
+                    <span className="font-semibold hidden md:inline">
+                        {isSaving ? 'Saving...' : isEditing ? 'Save Changes' : 'Unlock to Edit'}
+                    </span>
                 </button>
                 <button
                     onClick={handleDownloadPDF}

@@ -61,7 +61,10 @@ const Register = () => {
 
                     <button
                         type="button"
-                        onClick={() => alert("Google Login requires Google Cloud Console setup. Feature coming soon!")}
+                        onClick={() => {
+                            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                            window.location.href = `${baseUrl}/auth/google`;
+                        }}
                         className="w-full bg-white border border-gray-300 text-gray-700 p-3 rounded font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">

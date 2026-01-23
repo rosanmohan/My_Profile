@@ -22,6 +22,18 @@ This guide explains how to deploy the Multi-User Portfolio Application with perm
     *   Sign up at [Cloudinary](https://cloudinary.com/) (Free).
     *   Go to Dashboard and copy: `Cloud Name`, `API Key`, `API Secret`.
 
+3.  **Authentication (Google OAuth)**
+    *   Go to [Google Cloud Console](https://console.cloud.google.com/).
+    *   Create a Project -> APIs & Services -> Credentials.
+    *   Create **OAuth Client ID** (Web Application).
+    *   **Authorized JavaScript Origins**:
+        *   Local: `http://localhost:5173`
+        *   Prod: `https://your-vercel-app.vercel.app` (Your Vercel URL)
+    *   **Authorized Redirect URIs**:
+        *   Local: `http://localhost:8000/auth/google/callback`
+        *   Prod: `https://your-render-app.onrender.com/auth/google/callback` (Your Render Backend URL)
+    *   Copy `Client ID` and `Client Secret`.
+
 ---
 
 ## Step 2: Deploy Backend (Render.com)
@@ -38,6 +50,9 @@ This guide explains how to deploy the Multi-User Portfolio Application with perm
     *   `CLOUDINARY_API_KEY`: (Your API Key)
     *   `CLOUDINARY_API_SECRET`: (Your API Secret)
     *   `SECRET_KEY`: (Generate a random string for security)
+    *   `GOOGLE_CLIENT_ID`: (Your Google Client ID)
+    *   `GOOGLE_CLIENT_SECRET`: (Your Google Client Secret)
+    *   `FRONTEND_URL`: (Your Vercel Frontend URL, e.g. `https://my-app.vercel.app`. No trailing slash)
 8.  Click **Deploy**.
 
 ---
