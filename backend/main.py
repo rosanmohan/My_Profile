@@ -41,6 +41,10 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # Mount static directory to serve images
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Portfolio API"}
+
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
