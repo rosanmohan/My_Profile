@@ -68,6 +68,15 @@ def get_default_resume_data():
 
 @app.post("/auth/register", response_model=schemas.Token)
 def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
+    # 1. Strict Email Validation (Check Domain/MX records)
+    try:
+        from email_validator import validate_email, EmailNotValidError
+        # check_deliverability=True ensures the domain actually exists and has MX records
+        validate_email(user.email, check_deliverability=True)
+    except EmailNotValidError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid email address: {str(e)}")
+
+    # 2. Check if already exists
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
