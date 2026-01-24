@@ -6,6 +6,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    otp: str
 
 class UserLogin(UserBase):
     password: str

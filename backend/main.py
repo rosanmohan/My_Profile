@@ -66,17 +66,48 @@ def get_default_resume_data():
 
 # --- Auth Routes ---
 
-@app.post("/auth/register", response_model=schemas.Token)
-def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
-    # 1. Strict Email Validation (Check Domain/MX records)
+@app.post("/auth/send-register-otp")
+async def send_register_otp(request: ForgotPasswordRequest, db: Session = Depends(auth.get_db)):
+    # 1. Strict Email Validation
     try:
         from email_validator import validate_email, EmailNotValidError
-        # check_deliverability=True ensures the domain actually exists and has MX records
-        validate_email(user.email, check_deliverability=True)
+        validate_email(request.email, check_deliverability=True)
     except EmailNotValidError as e:
         raise HTTPException(status_code=400, detail=f"Invalid email address: {str(e)}")
 
     # 2. Check if already exists
+    db_user = db.query(models.User).filter(models.User.email == request.email).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # 3. Generate and Send OTP
+    otp = ''.join(random.choices(string.digits, k=6))
+    otp_store[request.email] = otp
+    
+    # Use the Google Apps Script Relay
+    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywhObhpQe6ySwjj3kiGTFGPpzGIs9mrd7qJ0eKg642oAqzneMyLcyY2qxl8W0_Gh-F/exec"
+    
+    try:
+        print(f"Sending Register OTP via Relay to: {request.email}")
+        response = requests.post(SCRIPT_URL, json={"email": request.email, "otp": otp})
+        
+        if response.status_code != 200:
+             raise Exception(f"Script returned {response.status_code}")
+             
+    except Exception as e:
+        print(f"CRITICAL RELAY ERROR: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+
+    return {"message": "OTP sent"}
+
+@app.post("/auth/register", response_model=schemas.Token)
+def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
+    # 1. Verify OTP
+    stored_otp = otp_store.get(user.email)
+    if not stored_otp or stored_otp != user.otp:
+        raise HTTPException(status_code=400, detail="Invalid or expired OTP")
+
+    # 2. Check if already exists (Double check)
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -92,6 +123,9 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
     new_resume = models.Resume(user_id=new_user.id, data=default_data)
     db.add(new_resume)
     db.commit()
+    
+    # Clear OTP
+    del otp_store[user.email]
 
     access_token = auth.create_access_token(data={"sub": new_user.email})
     return {"access_token": access_token, "token_type": "bearer"}
