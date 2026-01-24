@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Share2, Copy, Check } from 'lucide-react'
+import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Share2, Copy, Check, LogOut } from 'lucide-react'
 import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
@@ -604,34 +604,40 @@ function Dashboard() {
             </AnimatePresence>
 
             {/* Action Buttons */}
-            <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+            <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3 items-end">
                 <button
                     onClick={() => isEditing ? handleSave() : setExpandedExperience(-1)} // -1 is hack trigger for Unlock Modal
-                    className={`p-4 rounded-full shadow-xl flex items-center gap-2 transition-all text-white ${isEditing ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-800 hover:bg-black'}`}
+                    className={`px-5 py-3 mb-2 rounded-full shadow-lg flex items-center gap-2 transition-all backdrop-blur-md border
+                        ${isEditing
+                            ? 'bg-green-600 text-white border-green-500 hover:bg-green-700'
+                            : 'bg-white/60 border-white/40 text-gray-800 hover:bg-white/90'}`}
                 >
-                    {isEditing ? <Save size={24} /> : <Lock size={24} />}
-                    <span className="font-semibold hidden md:inline">{isEditing ? 'Save' : 'Unlock to Edit'}</span>
+                    {isEditing ? <Save size={20} /> : <Lock size={20} />}
+                    <span className="font-semibold text-sm">{isEditing ? 'Save Changes' : 'Unlock to Edit'}</span>
                 </button>
+
                 <button
                     onClick={handleDownloadPDF}
-                    className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5"
+                    className="w-12 h-12 rounded-full bg-white text-gray-700 shadow-lg hover:text-blue-600 hover:shadow-xl transition-all flex items-center justify-center border border-gray-100"
                     title="Download PDF"
                 >
                     <Download size={20} />
                 </button>
+
                 <button
                     onClick={handleGenerateLink}
-                    className="p-3 rounded-full bg-white text-gray-600 shadow-lg hover:text-purple-600 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-2 pr-5"
+                    className="w-12 h-12 rounded-full bg-white text-gray-700 shadow-lg hover:text-purple-600 hover:shadow-xl transition-all flex items-center justify-center border border-gray-100"
                     title="Share Profile"
                 >
                     <Share2 size={20} />
                 </button>
+
                 <button
                     onClick={handleLogout}
-                    className="p-3 rounded-full bg-red-600/80 hover:bg-red-700 text-white shadow-lg self-end"
+                    className="w-12 h-12 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-lg flex items-center justify-center transition-all"
                     title="Logout"
                 >
-                    <Trash2 size={20} />
+                    <LogOut size={20} />
                 </button>
             </div>
 
