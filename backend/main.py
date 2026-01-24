@@ -12,6 +12,7 @@ import cloudinary.uploader
 import pydantic
 from typing import Dict, Any
 from dotenv import load_dotenv
+import requests
 from pydantic import BaseModel, EmailStr
 
 load_dotenv() # Load environment variables
@@ -115,14 +116,11 @@ def verify_user_password(
 
 
 
-# --- Email Config (Resend) ---
-import resend
+
+# --- Email Config (Google Scripts Relay) ---
 from uuid import uuid4
 import random
 import string
-
-# Use RESEND_API_KEY from environment
-resend.api_key = os.getenv("RESEND_API_KEY")
 
 # Store OTPs in memory for simplicity (In production use Redis or DB)
 otp_store = {} 
@@ -145,25 +143,23 @@ async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(
     otp = ''.join(random.choices(string.digits, k=6))
     otp_store[request.email] = otp
     
-    html = f"""
-    <p>Your password reset code is: <strong>{otp}</strong></p>
-    <p>If you did not request this, please ignore this email.</p>
-    """
-
+    # Use the Google Apps Script Relay (Free, no domain needed)
+    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywhObhpQe6ySwjj3kiGTFGPpzGIs9mrd7qJ0eKg642oAqzneMyLcyY2qxl8W0_Gh-F/exec"
+    
     try:
-        print(f"Sending email via Resend to: {request.email}")
-        r = resend.Emails.send({
-            "from": "Portfolio App <onboarding@resend.dev>",
-            "to": request.email,
-            "subject": "Password Reset - Portfolio App",
-            "html": html
-        })
-        print(f"Resend Response: {r}")
+        print(f"Sending email via Relay to: {request.email}")
+        response = requests.post(SCRIPT_URL, json={"email": request.email, "otp": otp})
+        print(f"Relay Response: {response.text}")
+        
+        if response.status_code != 200:
+             raise Exception(f"Script returned {response.status_code}")
+             
     except Exception as e:
-        print(f"CRITICAL RESEND ERROR: {str(e)}")
+        print(f"CRITICAL RELAY ERROR: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
 
     return {"message": "Email sent"}
+
 
 
 @app.post("/auth/reset-password")
