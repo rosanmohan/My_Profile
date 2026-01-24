@@ -169,10 +169,17 @@ async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(
 
     fm = FastMail(conf)
     try:
+        # Debug Logs
+        print(f"Sending email to: {request.email}")
+        print(f"Mail Config: User={os.getenv('MAIL_USERNAME')}, PwdSet={'Yes' if os.getenv('MAIL_PASSWORD') else 'No'}")
+        
         await fm.send_message(message)
+        print("Email sent successfully")
     except Exception as e:
-        print(f"Email error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to send email. Check credentials.")
+        print(f"CRITICAL EMAIL ERROR: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
 
     return {"message": "Email sent"}
 
