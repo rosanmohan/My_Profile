@@ -114,24 +114,15 @@ def verify_user_password(
     return {"message": "Password verified"}
 
 
-# --- Email Config ---
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
+
+# --- Email Config (Resend) ---
+import resend
 from uuid import uuid4
 import random
 import string
 
-conf = ConnectionConfig(
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME"),
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD"),
-    MAIL_FROM = os.getenv("MAIL_USERNAME"),
-    MAIL_PORT = 587,
-    MAIL_SERVER = "smtp.gmail.com",
-    MAIL_STARTTLS = True,
-    MAIL_SSL_TLS = False,
-    USE_CREDENTIALS = True,
-    VALIDATE_CERTS = True,
-    TIMEOUT = 60 # Increased timeout even more
-)
+# Use RESEND_API_KEY from environment
+resend.api_key = os.getenv("RESEND_API_KEY")
 
 # Store OTPs in memory for simplicity (In production use Redis or DB)
 otp_store = {} 
@@ -148,8 +139,6 @@ class ResetPasswordRequest(BaseModel):
 async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(auth.get_db)):
     user = db.query(models.User).filter(models.User.email == request.email).first()
     if not user:
-        # Don't reveal user existence, just fake success or ambiguous error
-        # But for UX here we might verify.
         raise HTTPException(status_code=404, detail="Email not registered")
     
     # Generate OTP
@@ -161,28 +150,21 @@ async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(
     <p>If you did not request this, please ignore this email.</p>
     """
 
-    message = MessageSchema(
-        subject="Password Reset - Portfolio App",
-        recipients=[request.email],
-        body=html,
-        subtype=MessageType.html
-    )
-
-    fm = FastMail(conf)
     try:
-        # Debug Logs
-        print(f"Sending email to: {request.email}")
-        print(f"Mail Config: User={os.getenv('MAIL_USERNAME')}, PwdSet={'Yes' if os.getenv('MAIL_PASSWORD') else 'No'}")
-        
-        await fm.send_message(message)
-        print("Email sent successfully")
+        print(f"Sending email via Resend to: {request.email}")
+        r = resend.Emails.send({
+            "from": "Portfolio App <onboarding@resend.dev>",
+            "to": request.email,
+            "subject": "Password Reset - Portfolio App",
+            "html": html
+        })
+        print(f"Resend Response: {r}")
     except Exception as e:
-        print(f"CRITICAL EMAIL ERROR: {str(e)}")
-        import traceback
-        traceback.print_exc()
+        print(f"CRITICAL RESEND ERROR: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
 
     return {"message": "Email sent"}
+
 
 @app.post("/auth/reset-password")
 def reset_password(request: ResetPasswordRequest, db: Session = Depends(auth.get_db)):
