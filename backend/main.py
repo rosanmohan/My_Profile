@@ -64,6 +64,15 @@ def get_default_resume_data():
             return f.read() # Return as string
     return "{}"
 
+# --- Pydantic Models for Auth ---
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    otp: str
+    new_password: str
+
 # --- Auth Routes ---
 
 @app.post("/auth/send-register-otp")
@@ -167,14 +176,6 @@ import string
 
 # Store OTPs in memory for simplicity (In production use Redis or DB)
 otp_store = {} 
-
-class ForgotPasswordRequest(BaseModel):
-    email: EmailStr
-
-class ResetPasswordRequest(BaseModel):
-    email: EmailStr
-    otp: str
-    new_password: str
 
 @app.post("/auth/forgot-password")
 async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(auth.get_db)):
