@@ -1,8 +1,8 @@
 // ... imports remain same
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Loader2, Server, Globe, ShieldCheck, Zap, MonitorCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2, Server, Zap, MonitorCheck, Globe } from 'lucide-react';
 import api from '../api';
 
 export default function Welcome() {
@@ -38,94 +38,73 @@ export default function Welcome() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 transition-colors duration-1000">
-            {/* Main Card Container with Transition Blue -> Green */}
-            <div className={`max-w-4xl w-full grid md:grid-cols-2 rounded-3xl shadow-2xl overflow-hidden min-h-[500px] transition-all duration-700
-                ${status === 'ready' ? 'shadow-green-200' : 'shadow-blue-200'}`}>
+        <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-1000 ease-in-out
+            ${status === 'ready' ? 'bg-green-600' : 'bg-blue-600'}`}>
 
-                {/* Left Side - Info (Static Blue side requested to stay as blue/white text) */}
-                <div className={`p-10 flex flex-col justify-center text-white relative overflow-hidden transition-colors duration-700
-                    ${status === 'ready' ? 'bg-green-600' : 'bg-blue-600'}`}>
-
-                    <div className="absolute top-0 right-0 p-10 opacity-10">
-                        <Globe size={300} />
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={status} // Trigger animation on status change
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, type: 'spring' }}
+                    className="relative bg-white rounded-full shadow-2xl w-full max-w-[500px] aspect-square flex flex-col items-center justify-center text-center p-12 overflow-hidden"
+                >
+                    {/* Background Icon Watermark */}
+                    <div className="absolute top-0 opacity-5 pointer-events-none">
+                        <Globe size={400} />
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h1 className="text-4xl font-bold mb-4">My Portfolio</h1>
-                        <p className="text-white/90 text-lg mb-8">
-                            A showcase of my professional journey, skills, and projects powered by a secure, cloud-based backend.
-                        </p>
+                    <div className="relative z-10 flex flex-col items-center gap-6">
 
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3 text-white/90">
-                                <ShieldCheck className="w-6 h-6" />
-                                <span>Secure Authentication</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-white/90">
-                                <Zap className="w-6 h-6" />
-                                <span>Fast & Responsive</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-white/90">
-                                <Server className="w-6 h-6" />
-                                <span>Cloud Hosted (Render)</span>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Right Side - Server Status */}
-                <div className="p-10 flex flex-col items-center justify-center text-center bg-white">
-                    <div className="mb-6 relative">
-                        {/* Circle Icon Background */}
-                        <div className={`w-24 h-24 rounded-full flex items-center justify-center transition-all duration-500 
-                            ${status === 'ready' ? 'bg-green-100 text-green-600 scale-110' : 'bg-blue-50 text-blue-600'}`}>
+                        {/* Status Icon Bubble */}
+                        <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500 shadow-sm
+                            ${status === 'ready' ? 'bg-green-100 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
                             {status === 'ready' ? (
-                                <MonitorCheck size={40} className="stroke-[1.5]" />
+                                <MonitorCheck size={32} className="stroke-[2]" />
                             ) : (
-                                <Server size={40} className="stroke-[1.5]" />
+                                <Server size={32} className="stroke-[2]" />
                             )}
                         </div>
 
-                        {/* Ping Animation only when waking */}
-                        {status !== 'ready' && (
-                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-500"></span>
-                            </span>
-                        )}
+                        {/* Title & Description */}
+                        <div>
+                            <h1 className="text-3xl font-bold text-gray-800 mb-3">Portfolio Builder</h1>
+                            <p className="text-gray-500 font-medium leading-relaxed max-w-xs mx-auto">
+                                A showcase of <strong>your</strong> professional journey, skills, and projects.
+                            </p>
+                        </div>
+
+                        {/* Server Status Text */}
+                        <div className="h-4">
+                            <p className={`text-sm font-semibold tracking-wide uppercase ${status === 'ready' ? 'text-green-600' : 'text-blue-500 animate-pulse'}`}>
+                                {status === 'ready' ? (
+                                    <span className="flex items-center gap-2 justify-center">
+                                        Server Active
+                                    </span>
+                                ) : (
+                                    `Waking up server${dots}`
+                                )}
+                            </p>
+                        </div>
+
+                        {/* Enter Button */}
+                        <button
+                            onClick={handleEnter}
+                            disabled={status !== 'ready'}
+                            className={`px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 flex items-center gap-2 shadow-lg
+                                ${status === 'ready'
+                                    ? 'bg-green-600 hover:bg-green-700 text-white hover:scale-105'
+                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                        >
+                            {status === 'ready' ? (
+                                <>Enter App <Zap size={20} className="fill-current" /></>
+                            ) : (
+                                <><Loader2 className="animate-spin" size={20} /> Please Wait</>
+                            )}
+                        </button>
                     </div>
-
-                    <h2 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${status === 'ready' ? 'text-green-700' : 'text-gray-800'}`}>
-                        {status === 'ready' ? 'Server is Ready!' : 'Waking up Server'}
-                    </h2>
-
-                    <p className="text-gray-500 mb-8 h-8 font-medium">
-                        {status === 'ready' ?
-                            "System operational." :
-                            `Waking up server, don't close please wait${dots}`}
-                    </p>
-
-                    <button
-                        onClick={handleEnter}
-                        disabled={status !== 'ready'}
-                        className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-500 flex items-center justify-center gap-3
-                            ${status === 'ready'
-                                ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-green-200/50 transform hover:-translate-y-1'
-                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
-                    >
-                        {status === 'ready' ? (
-                            <>Enter Application <Zap size={20} className="fill-current" /></>
-                        ) : (
-                            <><Loader2 className="animate-spin" size={20} /> Please Wait...</>
-                        )}
-                    </button>
-                </div>
-            </div>
+                </motion.div>
+            </AnimatePresence>
         </div>
     );
 }
