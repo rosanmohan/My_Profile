@@ -12,6 +12,7 @@ import cloudinary.uploader
 import pydantic
 from typing import Dict, Any
 from dotenv import load_dotenv
+from pydantic import BaseModel, EmailStr
 
 load_dotenv() # Load environment variables
 
@@ -111,6 +112,89 @@ def verify_user_password(
             detail="Invalid password"
         )
     return {"message": "Password verified"}
+
+
+# --- Email Config ---
+from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
+from uuid import uuid4
+import random
+import string
+
+conf = ConnectionConfig(
+    MAIL_USERNAME = os.getenv("MAIL_USERNAME"),
+    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD"),
+    MAIL_FROM = os.getenv("MAIL_USERNAME"),
+    MAIL_PORT = 587,
+    MAIL_SERVER = "smtp.gmail.com",
+    MAIL_STARTTLS = True,
+    MAIL_SSL_TLS = False,
+    USE_CREDENTIALS = True,
+    VALIDATE_CERTS = True
+)
+
+# Store OTPs in memory for simplicity (In production use Redis or DB)
+otp_store = {} 
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    otp: str
+    new_password: str
+
+@app.post("/auth/forgot-password")
+async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(auth.get_db)):
+    user = db.query(models.User).filter(models.User.email == request.email).first()
+    if not user:
+        # Don't reveal user existence, just fake success or ambiguous error
+        # But for UX here we might verify.
+        raise HTTPException(status_code=404, detail="Email not registered")
+    
+    # Generate OTP
+    otp = ''.join(random.choices(string.digits, k=6))
+    otp_store[request.email] = otp
+    
+    html = f"""
+    <p>Your password reset code is: <strong>{otp}</strong></p>
+    <p>If you did not request this, please ignore this email.</p>
+    """
+
+    message = MessageSchema(
+        subject="Password Reset - Portfolio App",
+        recipients=[request.email],
+        body=html,
+        subtype=MessageType.html
+    )
+
+    fm = FastMail(conf)
+    try:
+        await fm.send_message(message)
+    except Exception as e:
+        print(f"Email error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send email. Check credentials.")
+
+    return {"message": "Email sent"}
+
+@app.post("/auth/reset-password")
+def reset_password(request: ResetPasswordRequest, db: Session = Depends(auth.get_db)):
+    # Verify OTP
+    stored_otp = otp_store.get(request.email)
+    if not stored_otp or stored_otp != request.otp:
+        raise HTTPException(status_code=400, detail="Invalid or expired Code")
+    
+    # Reset Password
+    user = db.query(models.User).filter(models.User.email == request.email).first()
+    if not user:
+         raise HTTPException(status_code=404, detail="User not found")
+         
+    user.hashed_password = auth.get_password_hash(request.new_password)
+    db.commit()
+    
+    # Clear OTP
+    del otp_store[request.email]
+    
+    return {"message": "Password updated successfully"}
 
 # --- Resume Routes ---
 
