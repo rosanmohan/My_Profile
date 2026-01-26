@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Server, Zap, MonitorCheck, Globe } from 'lucide-react';
+import { Loader2, Zap, Globe } from 'lucide-react';
 import api from '../api';
 
 export default function Welcome() {
@@ -56,14 +56,18 @@ export default function Welcome() {
 
                     <div className="relative z-10 flex flex-col items-center gap-6">
 
-                        {/* Status Icon Bubble */}
-                        <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500 shadow-sm
-                            ${status === 'ready' ? 'bg-green-100 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
-                            {status === 'ready' ? (
-                                <MonitorCheck size={32} className="stroke-[2]" />
-                            ) : (
-                                <Server size={32} className="stroke-[2]" />
-                            )}
+                        {/* Logo */}
+                        <div className="relative mb-2">
+                            <img
+                                src="/logo.png"
+                                alt="Portfolio Builder Logo"
+                                className="w-40 h-40 object-contain drop-shadow-lg rounded-xl"
+                            />
+
+                            {/* Status Indicator Dot (Subtle overlay) */}
+                            <div className={`absolute bottom-2 right-2 w-6 h-6 rounded-full border-4 border-white transition-colors duration-500
+                                ${status === 'ready' ? 'bg-green-500' : 'bg-blue-500 animate-pulse'}`}
+                            />
                         </div>
 
                         {/* Title & Description */}
