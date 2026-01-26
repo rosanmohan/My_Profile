@@ -6,7 +6,7 @@ import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { generateClassicPDF, generateModernPDF } from '../pdfTemplates'
+import { generateClassicPDF, generateModernPDF, generatePDFPreview } from '../pdfTemplates'
 
 function Dashboard() {
     const { logout } = useAuth();
@@ -32,6 +32,8 @@ function Dashboard() {
 
     // PDF Template Selection State
     const [showTemplateModal, setShowTemplateModal] = useState(false);
+    const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
+    const [previewTemplate, setPreviewTemplate] = useState<'classic' | 'modern' | null>(null);
 
     const handleUnlock = async () => {
         setLoading(true);
@@ -288,6 +290,28 @@ function Dashboard() {
         } else {
             generateModernPDF(data);
         }
+    };
+
+    const handlePreview = (template: 'classic' | 'modern') => {
+        if (!data) return;
+
+        // Clean up previous preview URL
+        if (pdfPreviewUrl) {
+            URL.revokeObjectURL(pdfPreviewUrl);
+        }
+
+        // Generate preview
+        const previewUrl = generatePDFPreview(data, template);
+        setPdfPreviewUrl(previewUrl);
+        setPreviewTemplate(template);
+    };
+
+    const closePreview = () => {
+        if (pdfPreviewUrl) {
+            URL.revokeObjectURL(pdfPreviewUrl);
+        }
+        setPdfPreviewUrl(null);
+        setPreviewTemplate(null);
     };
 
     return (
@@ -575,9 +599,22 @@ function Dashboard() {
                                     <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full">Traditional</span>
                                     <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full">ATS-Friendly</span>
                                 </div>
-                                <button className="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors group-hover:shadow-md">
-                                    Select Classic
-                                </button>
+                                <div className="flex gap-2 mt-4">
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handlePreview('classic'); }}
+                                        className="flex-1 border-2 border-blue-600 text-blue-600 py-2.5 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        <Eye size={18} />
+                                        Preview
+                                    </button>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handleTemplateSelection('classic'); }}
+                                        className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors group-hover:shadow-md flex items-center justify-center gap-2"
+                                    >
+                                        <Download size={18} />
+                                        Select
+                                    </button>
+                                </div>
                             </motion.div>
 
                             {/* Modern Template */}
@@ -616,10 +653,62 @@ function Dashboard() {
                                     <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-full">Contemporary</span>
                                     <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-full">Eye-Catching</span>
                                 </div>
-                                <button className="mt-4 w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-colors group-hover:shadow-md">
-                                    Select Modern
-                                </button>
+                                <div className="flex gap-2 mt-4">
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handlePreview('modern'); }}
+                                        className="flex-1 border-2 border-indigo-600 text-indigo-600 py-2.5 rounded-lg font-semibold hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        <Eye size={18} />
+                                        Preview
+                                    </button>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handleTemplateSelection('modern'); }}
+                                        className="flex-1 bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-colors group-hover:shadow-md flex items-center justify-center gap-2"
+                                    >
+                                        <Download size={18} />
+                                        Select
+                                    </button>
+                                </div>
                             </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+
+            {/* PDF Preview Modal */}
+            {pdfPreviewUrl && (
+                <div className="fixed inset-0 z-[130] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                    <motion.div
+                        initial={{ scale: 0.95, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white rounded-2xl w-full h-full max-w-6xl max-h-[90vh] shadow-2xl relative flex flex-col"
+                    >
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h3 className="text-xl font-bold text-gray-800">
+                                PDF Preview - {previewTemplate === 'classic' ? 'Classic' : 'Modern'} Template
+                            </h3>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => previewTemplate && handleTemplateSelection(previewTemplate)}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                                >
+                                    <Download size={18} />
+                                    Download This
+                                </button>
+                                <button
+                                    onClick={closePreview}
+                                    className="p-2 text-gray-400 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+                        </div>
+                        <div className="flex-1 overflow-hidden">
+                            <iframe
+                                src={pdfPreviewUrl}
+                                className="w-full h-full"
+                                title="PDF Preview"
+                            />
                         </div>
                     </motion.div>
                 </div>
