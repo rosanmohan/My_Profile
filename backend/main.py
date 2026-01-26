@@ -75,18 +75,27 @@ class ResetPasswordRequest(BaseModel):
 
 # --- Auth Routes ---
 
+# Logger Setup
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 @app.post("/auth/send-register-otp")
 async def send_register_otp(request: ForgotPasswordRequest, db: Session = Depends(auth.get_db)):
+    logger.info(f"OTP Request for email: {request.email}")
+
     # 1. Strict Email Validation
     try:
         from email_validator import validate_email, EmailNotValidError
         validate_email(request.email, check_deliverability=True)
     except EmailNotValidError as e:
+        logger.warning(f"Invalid email: {request.email} - {str(e)}")
         raise HTTPException(status_code=400, detail=f"Invalid email address: {str(e)}")
 
     # 2. Check if already exists
     db_user = db.query(models.User).filter(models.User.email == request.email).first()
     if db_user:
+        logger.warning(f"Email already registered: {request.email}")
         raise HTTPException(status_code=400, detail="Email already registered")
 
     # 3. Generate and Send OTP
@@ -94,18 +103,24 @@ async def send_register_otp(request: ForgotPasswordRequest, db: Session = Depend
     otp_store[request.email] = otp
     
     # Use the Google Apps Script Relay
-    # Use the Google Apps Script Relay
     SCRIPT_URL = os.getenv("GOOGLE_SCRIPT_URL")
     
+    if not SCRIPT_URL:
+        logger.error("GOOGLE_SCRIPT_URL not found in environment variables!")
+        raise HTTPException(status_code=500, detail="Server misconfiguration: Missing Email Service URL")
+
     try:
-        print(f"Sending Register OTP via Relay to: {request.email}")
+        logger.info(f"Sending OTP via Relay to: {request.email} using URL: {SCRIPT_URL}")
         response = requests.post(SCRIPT_URL, json={"email": request.email, "otp": otp})
+        logger.info(f"Relay Response Status: {response.status_code}")
+        logger.info(f"Relay Response Body: {response.text}")
         
         if response.status_code != 200:
+             logger.error(f"Script returned non-200 status: {response.status_code}")
              raise Exception(f"Script returned {response.status_code}")
              
     except Exception as e:
-        print(f"CRITICAL RELAY ERROR: {str(e)}")
+        logger.critical(f"CRITICAL RELAY ERROR for {request.email}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
 
     return {"message": "OTP sent"}
