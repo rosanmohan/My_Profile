@@ -122,7 +122,15 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
         raise HTTPException(status_code=400, detail="Email already registered")
     
     hashed_password = auth.get_password_hash(user.password)
-    new_user = models.User(email=user.email, hashed_password=hashed_password)
+    new_user = models.User(
+        email=user.email, 
+        hashed_password=hashed_password,
+        title=user.title,
+        first_name=user.first_name,
+        middle_name=user.middle_name,
+        last_name=user.last_name,
+        mobile_no=user.mobile_no
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -135,6 +143,28 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
     
     # Clear OTP
     del otp_store[user.email]
+
+    # Send Welcome Email
+    try:
+        SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywhObhpQe6ySwjj3kiGTFGPpzGIs9mrd7qJ0eKg642oAqzneMyLcyY2qxl8W0_Gh-F/exec"
+        review_link = "https://portfolio-builder-app.com/feedback" # Replace with actual link if available or generic
+        
+        # Construct email body
+        full_name = f"{user.first_name} {user.last_name}"
+        subject = "Welcome to Portfolio Builder!"
+        body = f"Dear {user.title or ''} {full_name},\n\nWelcome to Portfolio Builder! We are thrilled to have you onboard.\n\nTo help us improve, please share your thoughts and reviews here: {review_link}\n\nBest Regards,\nThe Team"
+        
+        # We send 'otp' as 'Welcome' or similar if the script depends on it, but better to send a proper payload.
+        # Assuming the user updates the script to handle 'subject' and 'body'.
+        print(f"Sending Welcome Email to: {user.email}")
+        requests.post(SCRIPT_URL, json={
+            "email": user.email, 
+            "subject": subject, 
+            "body": body,
+            "type": "welcome" 
+        })
+    except Exception as e:
+        print(f"Failed to send welcome email: {e}")
 
     access_token = auth.create_access_token(data={"sub": new_user.email})
     return {"access_token": access_token, "token_type": "bearer"}

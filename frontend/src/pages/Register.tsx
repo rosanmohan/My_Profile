@@ -5,7 +5,15 @@ import api from '../api';
 
 const Register = () => {
     const [step, setStep] = useState<1 | 2>(1);
+
+    // Personal Details State
+    const [title, setTitle] = useState('Mr');
+    const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [mobileNo, setMobileNo] = useState('');
     const [email, setEmail] = useState('');
+
     const [otp, setOtp] = useState('');
     const [password, setPassword] = useState('');
     const { login } = useAuth();
@@ -18,6 +26,12 @@ const Register = () => {
         setError('');
         setLoading(true);
         try {
+            // Validate minimal fields here if needed
+            if (!firstName || !lastName || !mobileNo) {
+                setError("Please fill all required fields.");
+                setLoading(false);
+                return;
+            }
             await api.post('/auth/send-register-otp', { email });
             setStep(2);
         } catch (err: any) {
@@ -33,9 +47,18 @@ const Register = () => {
         setError('');
         setLoading(true);
         try {
-            const res = await api.post('/auth/register', { email, password, otp }); // Include OTP
+            const res = await api.post('/auth/register', {
+                email,
+                password,
+                otp,
+                title,
+                first_name: firstName,
+                middle_name: middleName,
+                last_name: lastName,
+                mobile_no: mobileNo
+            });
             login(res.data.access_token);
-            navigate('/dashboard'); // Direct to dashboard
+            navigate('/dashboard');
         } catch (err: any) {
             console.error(err);
             const msg = err.response?.data?.detail || err.message || 'Registration failed';
@@ -46,8 +69,8 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
                     {step === 1 ? 'Create Account' : 'Verify & Setup'}
                 </h2>
@@ -56,8 +79,74 @@ const Register = () => {
 
                 {step === 1 ? (
                     <form onSubmit={handleSendCode} className="space-y-4">
+
+                        {/* Name Section */}
+                        <div className="grid grid-cols-4 gap-4">
+                            <div className="col-span-1">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                                <select
+                                    value={title}
+                                    onChange={e => setTitle(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                >
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Dr">Dr</option>
+                                </select>
+                            </div>
+                            <div className="col-span-3">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                                <input
+                                    type="text"
+                                    placeholder="First Name"
+                                    value={firstName}
+                                    onChange={e => setFirstName(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Middle Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Optional"
+                                    value={middleName}
+                                    onChange={e => setMiddleName(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Surname *</label>
+                                <input
+                                    type="text"
+                                    placeholder="Surname"
+                                    value={lastName}
+                                    onChange={e => setLastName(e.target.value)}
+                                    className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        {/* Contact Section */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Mobile No *</label>
+                            <input
+                                type="tel"
+                                placeholder="Mobile Number"
+                                value={mobileNo}
+                                onChange={e => setMobileNo(e.target.value)}
+                                className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
                             <input
                                 type="email"
                                 placeholder="Enter your email"
@@ -67,24 +156,20 @@ const Register = () => {
                                 required
                             />
                         </div>
+
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-600 text-white p-3 rounded font-bold hover:bg-blue-700 transition-colors disabled:opacity-50 flex justify-center"
+                            className="w-full bg-blue-600 text-white p-3 rounded font-bold hover:bg-blue-700 transition-colors disabled:opacity-50 flex justify-center mt-6"
                         >
-                            {loading ? 'Sending Code...' : 'Send Verification Code'}
+                            {loading ? 'Sending Verification Code...' : 'Proceed to Verify'}
                         </button>
                     </form>
                 ) : (
                     <form onSubmit={handleRegister} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input
-                                type="email"
-                                value={email}
-                                disabled
-                                className="w-full p-3 border border-gray-200 bg-gray-100 rounded text-gray-500 cursor-not-allowed"
-                            />
+                        <div className="p-4 bg-blue-50 text-blue-800 rounded mb-4 text-sm">
+                            <p>We've sent a 6-digit code to <strong>{email}</strong>.</p>
+                            <button type="button" onClick={() => setStep(1)} className="text-blue-600 underline mt-1">Change details?</button>
                         </div>
 
                         <div>

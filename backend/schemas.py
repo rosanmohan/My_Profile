@@ -7,6 +7,11 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
     otp: str
+    title: Optional[str] = None
+    first_name: str
+    middle_name: Optional[str] = None
+    last_name: str
+    mobile_no: str
 
 class UserLogin(UserBase):
     password: str
