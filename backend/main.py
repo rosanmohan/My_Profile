@@ -94,7 +94,8 @@ async def send_register_otp(request: ForgotPasswordRequest, db: Session = Depend
     otp_store[request.email] = otp
     
     # Use the Google Apps Script Relay
-    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywhObhpQe6ySwjj3kiGTFGPpzGIs9mrd7qJ0eKg642oAqzneMyLcyY2qxl8W0_Gh-F/exec"
+    # Use the Google Apps Script Relay
+    SCRIPT_URL = os.getenv("GOOGLE_SCRIPT_URL")
     
     try:
         print(f"Sending Register OTP via Relay to: {request.email}")
@@ -146,7 +147,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
 
     # Send Welcome Email
     try:
-        SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywhObhpQe6ySwjj3kiGTFGPpzGIs9mrd7qJ0eKg642oAqzneMyLcyY2qxl8W0_Gh-F/exec"
+        SCRIPT_URL = os.getenv("GOOGLE_SCRIPT_URL")
         review_link = "https://portfolio-builder-app.com/feedback" # Replace with actual link if available or generic
         
         # Construct email body
