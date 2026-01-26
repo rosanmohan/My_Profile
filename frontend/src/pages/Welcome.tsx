@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Zap, Globe } from 'lucide-react';
+import { Loader2, Zap } from 'lucide-react';
 import api from '../api';
 
 export default function Welcome() {
@@ -50,8 +50,9 @@ export default function Welcome() {
                     className="relative bg-white rounded-full shadow-2xl w-full max-w-[500px] aspect-square flex flex-col items-center justify-center text-center p-12 overflow-hidden"
                 >
                     {/* Background Icon Watermark */}
-                    <div className="absolute top-0 opacity-5 pointer-events-none">
-                        <Globe size={400} />
+                    {/* Background Icon Watermark */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                        <img src="/logo.png" alt="" className="w-[120%] h-[120%] object-cover grayscale" />
                     </div>
 
                     <div className="relative z-10 flex flex-col items-center gap-6">
