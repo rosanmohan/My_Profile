@@ -203,8 +203,29 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
     db.refresh(new_user)
 
     # Create initial resume for user (using template)
-    default_data = get_default_resume_data()
-    new_resume = models.Resume(user_id=new_user.id, data=default_data)
+    default_data_str = get_default_resume_data()
+    try:
+        data_json = json.loads(default_data_str)
+        
+        # Personalize the profile section
+        full_name_parts = [user.first_name]
+        if user.middle_name:
+            full_name_parts.append(user.middle_name)
+        full_name_parts.append(user.last_name)
+        
+        data_json['profile']['name'] = " ".join(full_name_parts).strip()
+        data_json['profile']['email'] = user.email
+        data_json['profile']['phone'] = user.mobile_no
+        
+        # We can also pre-fill the location or title if we had that info, 
+        # but for now, just personal identifiers.
+        
+        personalized_data = json.dumps(data_json)
+    except Exception as e:
+        print(f"Error personalizing resume data: {e}")
+        personalized_data = default_data_str # Fallback to default if parsing fails
+
+    new_resume = models.Resume(user_id=new_user.id, data=personalized_data)
     db.add(new_resume)
     db.commit()
     
