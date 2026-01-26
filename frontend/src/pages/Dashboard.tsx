@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import api from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Lock, Loader2, Save, Plus, Trash2, Mail, Phone, Linkedin, MapPin, X, ChevronRight, Download, Camera, User, Github, CreditCard, Calendar, FileText, Upload, Eye, Share2, Copy, Check, LogOut } from 'lucide-react'
-import { jsPDF } from 'jspdf'
 import { ResumeData, Experience, Project, Education } from '../types'
 import { EditableText } from '../components/EditableText'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { generateClassicPDF, generateModernPDF } from '../pdfTemplates'
 
 function Dashboard() {
     const { logout } = useAuth();
@@ -29,6 +29,9 @@ function Dashboard() {
     const [showShareModal, setShowShareModal] = useState(false);
     const [publicUrl, setPublicUrl] = useState('');
     const [copied, setCopied] = useState(false);
+
+    // PDF Template Selection State
+    const [showTemplateModal, setShowTemplateModal] = useState(false);
 
     const handleUnlock = async () => {
         setLoading(true);
@@ -271,206 +274,20 @@ function Dashboard() {
     };
 
     const handleDownloadPDF = () => {
+        setShowTemplateModal(true);
+    };
+
+    const handleTemplateSelection = (template: 'classic' | 'modern') => {
         if (!data) return;
-        const doc = new jsPDF();
-        const margin = 20;
-        let yPos = 20;
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const contentWidth = pageWidth - (margin * 2);
 
-        const checkPageBreak = (height: number) => {
-            if (yPos + height > 280) {
-                doc.addPage();
-                yPos = 20;
-            }
-        };
+        setShowTemplateModal(false);
 
-        // ... PDF Logic (Identical to before) ...
-        // Header
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(22);
-        doc.setTextColor(0, 0, 0);
-        doc.text(data.profile.name, pageWidth / 2, yPos, { align: 'center' });
-        yPos += 10;
-
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(100, 100, 100);
-        doc.text(data.profile.title, pageWidth / 2, yPos, { align: 'center' });
-        yPos += 8;
-
-        doc.setFontSize(10);
-        let contactInfo = `${data.profile.email} | ${data.profile.phone} | ${data.profile.location}`;
-        if (data.profile.github) {
-            const cleanGithub = data.profile.github.replace(/^https?:\/\//, '');
-            contactInfo += ` | ${cleanGithub}`;
-        }
-        doc.text(contactInfo, pageWidth / 2, yPos, { align: 'center' });
-        yPos += 6;
-
-        const personalIds = [];
-        if (data.profile.pan) personalIds.push(data.profile.pan);
-        if (data.profile.aadhaar) personalIds.push(data.profile.aadhaar);
-
-        if (data.profile.dob) {
-            const dateMatch = data.profile.dob.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
-            if (dateMatch) {
-                const day = parseInt(dateMatch[1]);
-                const month = parseInt(dateMatch[2]);
-                const year = parseInt(dateMatch[3]);
-                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                const getSuffix = (d: number) => {
-                    if (d > 3 && d < 21) return 'th';
-                    switch (d % 10) {
-                        case 1: return "st";
-                        case 2: return "nd";
-                        case 3: return "rd";
-                        default: return "th";
-                    }
-                };
-                const formattedDate = `${day}${getSuffix(day)} ${months[month - 1]} ${year}`;
-                personalIds.push(`DOB: ${formattedDate}`);
-            } else {
-                personalIds.push(`DOB: ${data.profile.dob}`);
-            }
-        }
-
-        if (personalIds.length > 0) {
-            doc.text(personalIds.join(" | "), pageWidth / 2, yPos, { align: 'center' });
-            yPos += 10;
+        // Generate PDF based on selected template
+        if (template === 'classic') {
+            generateClassicPDF(data);
         } else {
-            yPos += 5;
+            generateModernPDF(data);
         }
-
-        doc.setDrawColor(200, 200, 200);
-        doc.line(margin, yPos, pageWidth - margin, yPos);
-        yPos += 10;
-
-        const addSectionTitle = (title: string) => {
-            checkPageBreak(15);
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-            doc.setTextColor(0, 0, 0);
-            doc.text(title.toUpperCase(), margin, yPos);
-            yPos += 8;
-        };
-
-        if (data.profile.summary) {
-            addSectionTitle("About Me");
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(10);
-            doc.setTextColor(60, 60, 60);
-            const lines = doc.splitTextToSize(data.profile.summary, contentWidth);
-            checkPageBreak(lines.length * 5);
-            doc.text(lines, margin, yPos);
-            yPos += lines.length * 5 + 10;
-        }
-
-        if (data.skills) {
-            addSectionTitle("Technical Skills");
-            Object.entries(data.skills).forEach(([category, skills]) => {
-                checkPageBreak(12);
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(10);
-                doc.setTextColor(40, 40, 40);
-                doc.text(`${category}:`, margin, yPos);
-                doc.setFont("helvetica", "normal");
-                const skillText = skills.join(", ");
-                const lines = doc.splitTextToSize(skillText, contentWidth - 40);
-                doc.text(lines, margin + 40, yPos);
-                yPos += lines.length * 5 + 4;
-            });
-            yPos += 8;
-        }
-
-        if (data.experience) {
-            addSectionTitle("Professional Experience");
-            data.experience.forEach(exp => {
-                checkPageBreak(30);
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0);
-                doc.text(exp.role, margin, yPos);
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(9);
-                doc.text(exp.duration, pageWidth - margin, yPos, { align: 'right' });
-                yPos += 5;
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(10);
-                doc.setTextColor(50, 50, 150);
-                doc.text(exp.company, margin, yPos);
-                yPos += 6;
-                if (exp.description) {
-                    doc.setFont("helvetica", "normal");
-                    doc.setFontSize(10);
-                    doc.setTextColor(60, 60, 60);
-                    const lines = doc.splitTextToSize(exp.description, contentWidth);
-                    checkPageBreak(lines.length * 5);
-                    doc.text(lines, margin, yPos);
-                    yPos += lines.length * 5 + 8;
-                } else {
-                    yPos += 8;
-                }
-            });
-        }
-
-        if (data.projects) {
-            addSectionTitle("Featured Projects");
-            data.projects.forEach(proj => {
-                checkPageBreak(30);
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0);
-                doc.text(proj.title, margin, yPos);
-                yPos += 5;
-                doc.setFont("helvetica", "italic");
-                doc.setFontSize(9);
-                doc.setTextColor(100, 100, 100);
-                doc.text(proj.technologies.join(", "), margin, yPos);
-                yPos += 6;
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(10);
-                doc.setTextColor(60, 60, 60);
-                const lines = doc.splitTextToSize(proj.description, contentWidth);
-                checkPageBreak(lines.length * 5);
-                doc.text(lines, margin, yPos);
-                yPos += lines.length * 5 + 6;
-                if (proj.responsibilities) {
-                    checkPageBreak(10);
-                    doc.setFont("helvetica", "bold");
-                    doc.setFontSize(9);
-                    doc.setTextColor(80, 80, 80);
-                    doc.text("Roles & Responsibility:", margin, yPos);
-                    yPos += 5;
-                    doc.setFont("helvetica", "normal");
-                    doc.setTextColor(60, 60, 60);
-                    const respLines = doc.splitTextToSize(proj.responsibilities, contentWidth);
-                    checkPageBreak(respLines.length * 5);
-                    doc.text(respLines, margin, yPos);
-                    yPos += respLines.length * 5 + 8;
-                } else {
-                    yPos += 6;
-                }
-            });
-        }
-
-        if (data.education) {
-            addSectionTitle("Education");
-            data.education.forEach(edu => {
-                checkPageBreak(15);
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0);
-                doc.text(edu.degree, margin, yPos);
-                yPos += 5;
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(10);
-                doc.text(`${edu.institution} | ${edu.year}`, margin, yPos);
-                yPos += 10;
-            });
-        }
-
-        doc.save("Rosan_Profile.pdf");
     };
 
     return (
@@ -703,6 +520,108 @@ function Dashboard() {
                             </button>
                         </div>
                     </div>
+                </div>
+            )}
+
+            {/* PDF Template Selection Modal */}
+            {showTemplateModal && (
+                <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white rounded-2xl p-8 w-full max-w-3xl shadow-2xl relative"
+                    >
+                        <button
+                            onClick={() => setShowTemplateModal(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        <h3 className="text-2xl font-bold text-gray-800 text-center mb-2">Choose Your Resume Template</h3>
+                        <p className="text-gray-500 text-center text-sm mb-8">Select a template design for your PDF download</p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Classic Template */}
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                onClick={() => handleTemplateSelection('classic')}
+                                className="border-2 border-gray-200 hover:border-blue-500 rounded-xl p-6 cursor-pointer transition-all group"
+                            >
+                                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg h-64 mb-4 flex flex-col items-center justify-center border border-gray-200 overflow-hidden relative">
+                                    {/* Classic Template Preview */}
+                                    <div className="absolute inset-4 bg-white rounded shadow-sm p-3 text-xs">
+                                        <div className="text-center mb-2">
+                                            <div className="h-2 w-20 bg-gray-800 mx-auto mb-1 rounded"></div>
+                                            <div className="h-1.5 w-32 bg-gray-400 mx-auto rounded"></div>
+                                        </div>
+                                        <div className="h-px bg-gray-200 my-2"></div>
+                                        <div className="space-y-1.5">
+                                            <div className="h-1 w-16 bg-gray-600 rounded"></div>
+                                            <div className="h-1 w-full bg-gray-300 rounded"></div>
+                                            <div className="h-1 w-full bg-gray-300 rounded"></div>
+                                            <div className="h-1 w-3/4 bg-gray-300 rounded"></div>
+                                        </div>
+                                        <div className="mt-3 space-y-1.5">
+                                            <div className="h-1 w-20 bg-gray-600 rounded"></div>
+                                            <div className="h-1 w-full bg-gray-300 rounded"></div>
+                                            <div className="h-1 w-5/6 bg-gray-300 rounded"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 className="text-lg font-bold text-gray-800 mb-2">Classic Professional</h4>
+                                <p className="text-sm text-gray-600 mb-3">Traditional single-column layout. Clean and professional design suitable for all industries.</p>
+                                <div className="flex gap-2 flex-wrap text-xs">
+                                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full">Traditional</span>
+                                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full">ATS-Friendly</span>
+                                </div>
+                                <button className="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors group-hover:shadow-md">
+                                    Select Classic
+                                </button>
+                            </motion.div>
+
+                            {/* Modern Template */}
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                onClick={() => handleTemplateSelection('modern')}
+                                className="border-2 border-gray-200 hover:border-indigo-500 rounded-xl p-6 cursor-pointer transition-all group"
+                            >
+                                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg h-64 mb-4 flex flex-col items-center justify-center border border-indigo-100 overflow-hidden relative">
+                                    {/* Modern Template Preview */}
+                                    <div className="absolute inset-4 bg-white rounded shadow-sm flex">
+                                        <div className="w-1/3 bg-slate-700 p-2 text-xs space-y-1">
+                                            <div className="h-1 w-full bg-slate-400 rounded"></div>
+                                            <div className="h-0.5 w-3/4 bg-slate-500 rounded"></div>
+                                            <div className="h-0.5 w-3/4 bg-slate-500 rounded mt-2"></div>
+                                            <div className="mt-2 space-y-0.5">
+                                                <div className="h-1 w-2/3 bg-slate-400 rounded"></div>
+                                                <div className="h-0.5 w-full bg-slate-500 rounded"></div>
+                                                <div className="h-0.5 w-full bg-slate-500 rounded"></div>
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 p-2 space-y-1">
+                                            <div className="h-1.5 w-20 bg-blue-500 rounded"></div>
+                                            <div className="h-1 w-24 bg-gray-400 rounded"></div>
+                                            <div className="mt-2 space-y-0.5">
+                                                <div className="h-1 w-16 bg-gray-700 rounded"></div>
+                                                <div className="h-0.5 w-full bg-gray-300 rounded"></div>
+                                                <div className="h-0.5 w-5/6 bg-gray-300 rounded"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 className="text-lg font-bold text-gray-800 mb-2">Modern Creative</h4>
+                                <p className="text-sm text-gray-600 mb-3">Two-column layout with color sidebar. Perfect for creatives and tech professionals.</p>
+                                <div className="flex gap-2 flex-wrap text-xs">
+                                    <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-full">Contemporary</span>
+                                    <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-full">Eye-Catching</span>
+                                </div>
+                                <button className="mt-4 w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-colors group-hover:shadow-md">
+                                    Select Modern
+                                </button>
+                            </motion.div>
+                        </div>
+                    </motion.div>
                 </div>
             )}
 
