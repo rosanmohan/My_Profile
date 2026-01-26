@@ -606,14 +606,18 @@ function PublicProfile() {
                         {isEditing ? (
                             <EditableText value={data.profile.email} onChange={(v) => updateProfile('email', v)} isEditing={true} />
                         ) : (
-                            <a href={`mailto:${data.profile.email}`} className="hover:underline truncate max-w-[150px]">
+                            <a href={`mailto:${data.profile.email}`} className="hover:underline">
                                 {data.profile.email}
                             </a>
                         )}
                     </div>
                     <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <Phone size={14} />
-                        <EditableText value={data.profile.phone} onChange={(v) => updateProfile('phone', v)} isEditing={isEditing} />
+                        <EditableText
+                            value={data.profile.phone ? (data.profile.phone.startsWith('+') ? data.profile.phone : `+91 ${data.profile.phone}`) : ''}
+                            onChange={(v) => updateProfile('phone', v)}
+                            isEditing={isEditing}
+                        />
                     </div>
                     <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-indigo-100 transition-colors">
                         <MapPin size={14} />

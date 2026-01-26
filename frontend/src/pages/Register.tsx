@@ -55,7 +55,7 @@ const Register = () => {
                 first_name: firstName,
                 middle_name: middleName,
                 last_name: lastName,
-                mobile_no: mobileNo
+                mobile_no: `+91 ${mobileNo}`
             });
             login(res.data.access_token);
             navigate('/dashboard');
@@ -135,14 +135,23 @@ const Register = () => {
                         {/* Contact Section */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Mobile No *</label>
-                            <input
-                                type="tel"
-                                placeholder="Mobile Number"
-                                value={mobileNo}
-                                onChange={e => setMobileNo(e.target.value)}
-                                className="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                                required
-                            />
+                            <div className="relative">
+                                <span className="absolute left-3 top-3 text-gray-500 font-medium border-r border-gray-300 pr-2">+91</span>
+                                <input
+                                    type="tel"
+                                    placeholder="Mobile Number"
+                                    value={mobileNo}
+                                    onChange={e => {
+                                        const re = /^[0-9\b]+$/;
+                                        if (e.target.value === '' || re.test(e.target.value)) {
+                                            setMobileNo(e.target.value)
+                                        }
+                                    }}
+                                    className="w-full p-3 pl-14 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                                    required
+                                    maxLength={10}
+                                />
+                            </div>
                         </div>
 
                         <div>
