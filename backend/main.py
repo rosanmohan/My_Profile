@@ -34,6 +34,57 @@ cloudinary.config(
 # Create Database Tables
 models.Base.metadata.create_all(bind=database.engine)
 
+# AUTO-MIGRATE: Add missing columns if they don't exist
+# This is a workaround for Render Free Tier lack of Shell access
+def run_migrations():
+    from sqlalchemy import text
+    try:
+        with database.engine.connect() as conn:
+            # Check/Add title
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN title VARCHAR;"))
+                print("MIGRATION: Added title column")
+                conn.commit()
+            except Exception:
+                conn.rollback() 
+
+            # Check/Add first_name
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN first_name VARCHAR;"))
+                print("MIGRATION: Added first_name column")
+                conn.commit()
+            except Exception:
+                conn.rollback()
+
+            # Check/Add middle_name
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN middle_name VARCHAR;"))
+                print("MIGRATION: Added middle_name column")
+                conn.commit()
+            except Exception:
+                conn.rollback()
+
+            # Check/Add last_name
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN last_name VARCHAR;"))
+                print("MIGRATION: Added last_name column")
+                conn.commit()
+            except Exception:
+                conn.rollback()
+
+            # Check/Add mobile_no
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN mobile_no VARCHAR;"))
+                print("MIGRATION: Added mobile_no column")
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                
+    except Exception as e:
+        print(f"MIGRATION ERROR: {e}")
+
+run_migrations()
+
 app = FastAPI()
 
 # Create uploads directory
