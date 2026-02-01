@@ -47,22 +47,21 @@ export default function Welcome() {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.5, type: 'spring' }}
-                    className="relative bg-white rounded-full shadow-2xl w-full max-w-[500px] aspect-square flex flex-col items-center justify-center text-center p-12 overflow-hidden"
+                    className="relative bg-white rounded-full shadow-2xl w-full max-w-[500px] aspect-square flex flex-col items-center justify-center text-center p-8 overflow-hidden"
                 >
-                    {/* Background Icon Watermark */}
                     {/* Background Icon Watermark */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
                         <img src="/logo.png" alt="" className="w-[120%] h-[120%] object-cover grayscale" />
                     </div>
 
-                    <div className="relative z-10 flex flex-col items-center gap-6">
+                    <div className="relative z-10 flex flex-col items-center gap-2">
 
                         {/* Logo */}
-                        <div className="relative mb-2">
+                        <div className="relative mb-1">
                             <img
                                 src="/logo.png"
                                 alt="Portfolio Builder Logo"
-                                className="w-64 h-64 object-contain drop-shadow-lg"
+                                className="w-52 h-52 object-contain drop-shadow-lg"
                             />
 
                             {/* Status Indicator Dot (Subtle overlay) */}
