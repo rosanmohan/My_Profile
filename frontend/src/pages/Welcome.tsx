@@ -62,7 +62,7 @@ export default function Welcome() {
                             <img
                                 src="/logo.png"
                                 alt="Portfolio Builder Logo"
-                                className="w-40 h-40 object-contain drop-shadow-lg rounded-xl"
+                                className="w-64 h-64 object-contain drop-shadow-lg"
                             />
 
                             {/* Status Indicator Dot (Subtle overlay) */}
